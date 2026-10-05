@@ -4,6 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import Link from "next/link";
 
 const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -79,9 +80,11 @@ export default function ProductPage() {
                 <span className="text-sm font-medium">1</span>
                 <button className="text-gray-500 hover:text-black">+</button>
               </div>
-              <button className="flex-1 bg-black text-white py-4 text-xs font-semibold tracking-[0.2em] hover:bg-gray-800 transition-colors">
-                SOLD OUT
-              </button>
+              <Link href="/cart" className="flex-1">
+                <button className="w-full bg-black text-white py-4 text-xs font-semibold tracking-[0.2em] hover:bg-gray-800 transition-colors uppercase">
+                  ADD TO BAG
+                </button>
+              </Link>
             </div>
             <p className="text-xs text-gray-500 mb-8">* Ships within 24-48 hours of ordering.</p>
 
@@ -106,7 +109,9 @@ export default function ProductPage() {
                 <div className="p-4 py-3">
                   <div className="text-xs font-semibold mb-1">MORE SAVINGS FOR YOU</div>
                   <p className="text-[10px] text-gray-500 leading-tight">Buy 2 or more 100ml flacons & save up to 20%</p>
-                  <button className="text-[9px] mt-2 text-black font-semibold border-b border-black pb-px">EXPLORE BUNDLES →</button>
+                  <Link href="/shop">
+                    <button className="text-[9px] mt-2 text-black font-semibold border-b border-black pb-px">EXPLORE BUNDLES →</button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -207,9 +212,11 @@ export default function ProductPage() {
                   <p className="text-xs text-gray-600">Layer over cuffs or raw silk lapels for infinite sillage.</p>
                 </div>
               </div>
-              <button className="mt-8 border-b-2 border-black pb-1 text-xs font-semibold tracking-widest hover:text-gray-500 hover:border-gray-500 transition-colors uppercase">
-                Acquire Orion 100ml Extrait →
-              </button>
+              <Link href="/cart">
+                <button className="mt-8 border-b-2 border-black pb-1 text-xs font-semibold tracking-widest hover:text-gray-500 hover:border-gray-500 transition-colors uppercase">
+                  Acquire Orion 100ml Extrait →
+                </button>
+              </Link>
             </div>
             <div className="w-full md:w-1/2 relative h-[400px]">
               <div className="absolute inset-0 bg-stone-100 rounded-[40px] -rotate-2 scale-105"></div>
@@ -240,12 +247,16 @@ export default function ProductPage() {
               Request our 3x2ml Discovery Miniature vial set. Your investment is 100% redeemable against your future 100ml flacon purchase.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 min-w-[200px]">
-              <button className="flex-1 border border-gray-300 bg-white text-gray-900 px-6 py-4 text-[10px] tracking-[0.2em] font-semibold hover:bg-gray-50 hover:border-gray-400 transition-all shadow-sm">
-                ORDER DISCOVERY SET
-              </button>
-              <button className="flex-1 bg-black text-white px-6 py-4 text-[10px] tracking-[0.2em] font-semibold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl">
-                ORDER ORION NOW
-              </button>
+              <Link href="/product/cologne-discovery-collection" className="flex-1">
+                <button className="w-full border border-gray-300 bg-white text-gray-900 px-6 py-4 text-[10px] tracking-[0.2em] font-semibold hover:bg-gray-50 hover:border-gray-400 transition-all shadow-sm">
+                  ORDER DISCOVERY SET
+                </button>
+              </Link>
+              <Link href="/cart" className="flex-1">
+                <button className="w-full bg-black text-white px-6 py-4 text-[10px] tracking-[0.2em] font-semibold hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl">
+                  ORDER ORION NOW
+                </button>
+              </Link>
             </div>
           </div>
         </div>
