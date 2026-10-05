@@ -1,7 +1,7 @@
 import { Menu, ShoppingBag, Search } from "lucide-react";
 import Link from "next/link";
 
-export default function Navbar() {
+export default function Navbar({ theme }: { theme?: string }) {
   return (
     <div className="fixed top-0 w-full z-50">
       {/* Announcement Bar */}

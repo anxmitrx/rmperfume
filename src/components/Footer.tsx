@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Footer() {
+export default function Footer({ theme }: { theme?: string }) {
   return (
     <footer className="bg-[#F9F8F3] text-[#1A1A1A] pt-16 pb-10 px-6 border-t border-[#E5E5E5] font-sans">
       <div className="max-w-[1400px] mx-auto">
