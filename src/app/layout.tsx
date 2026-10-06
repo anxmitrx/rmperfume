@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   description: "Born in obscurity. Refined in shadows.",
 };
 
+import { LoadingProvider } from "@/components/LoadingScreen";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,7 +27,11 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-surface text-on-surface">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-surface text-on-surface">
+        <LoadingProvider>
+          {children}
+        </LoadingProvider>
+      </body>
     </html>
   );
 }

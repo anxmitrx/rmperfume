@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLoading } from "@/components/LoadingScreen";
 
 const bestSellers = [
   { slug: "valentino", name: "Valentino", price: 15, image: "/images/perfume_stay_a_little_longer.jpg", glow: "group-hover:shadow-[0_0_40px_rgba(255,102,153,0.3)]" },
@@ -23,28 +24,20 @@ const chromaticVault = [
 
 export default function Home() {
   const [selectedDiscovery, setSelectedDiscovery] = useState(0);
+  const { triggerLoading } = useLoading();
 
   return (
     <div className="min-h-screen font-sans w-full text-[#1A1A1A] overflow-x-hidden flex flex-col selection:bg-[#FF3366] selection:text-white bg-[#FFF6F2]">
       
       {/* SECTION 1: Minimalist Navigation Bar */}
       <header className="absolute top-0 left-0 w-full flex items-center justify-between px-8 md:px-12 py-8 z-50">
-        <div className="flex items-center gap-2 cursor-pointer group">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#starburst-grad)" strokeWidth="2" className="group-hover:rotate-180 transition-transform duration-700">
-            <defs>
-              <linearGradient id="starburst-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FFB84D" />
-                <stop offset="100%" stopColor="#FF3366" />
-              </linearGradient>
-            </defs>
-            <path d="M12 2L15 10H22L16 15L18 22L12 18L6 22L8 15L2 10H9L12 2Z" />
-          </svg>
-          <span className="text-3xl font-serif font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#1A1A1A] to-[#4A1A1A]">Amour</span>
-        </div>
+        <Link href="/" onClick={() => triggerLoading()} className="flex items-center cursor-pointer relative w-[240px] h-[30px] md:h-[40px] lg:w-[320px] lg:h-[45px] z-10">
+           <Image src="/images/logo2.png" alt="ONE OF NONE" fill className="object-contain object-left mix-blend-multiply" priority />
+        </Link>
         
-        <nav className="hidden md:flex items-center gap-10 font-medium text-[13px] tracking-wide text-[#1A1A1A]">
+        <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 items-center gap-10 font-medium text-[13px] tracking-wide text-[#1A1A1A] z-10">
           {['Perfume', 'Brand', 'Shop', 'Outfit', 'Guide'].map(item => (
-             <Link key={item} href="#" className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#FF5E8E] hover:to-[#9933FF] transition-all font-bold">
+             <Link key={item} href="#" onClick={() => triggerLoading()} className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#FF5E8E] hover:to-[#9933FF] transition-all font-bold">
                {item}
              </Link>
           ))}
@@ -55,7 +48,7 @@ export default function Home() {
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           </button>
           <div className="p-[2px] rounded-full bg-gradient-to-r from-[#FFB84D] via-[#FF3366] to-[#9933FF] hover:shadow-[0_0_15px_rgba(255,51,102,0.4)] transition-all">
-            <Link href="/cart" className="flex items-center gap-3 bg-white/90 backdrop-blur-sm pl-5 pr-2 py-2 rounded-full group">
+            <Link href="/cart" onClick={() => triggerLoading()} className="flex items-center gap-3 bg-white/90 backdrop-blur-sm pl-5 pr-2 py-2 rounded-full group">
               <span className="text-[13px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E8E] to-[#9933FF]">Cart</span>
               <div className="w-7 h-7 bg-gradient-to-br from-[#1A1A1A] to-[#333] text-white rounded-full flex items-center justify-center text-[11px] font-bold shadow-md">0</div>
             </Link>
@@ -134,7 +127,7 @@ export default function Home() {
                  <span className="text-white drop-shadow-md font-serif italic text-[42px] font-bold leading-none mb-1 relative z-10">25% Off</span>
                  <span className="text-[#1A1A1A] text-[11px] font-extrabold uppercase tracking-widest mt-1 relative z-10 bg-white/50 px-4 py-1 rounded-full backdrop-blur-sm">on all New Arrivals</span>
               </div>
-              <button className="w-[90px] h-[90px] bg-gradient-to-br from-[#1A1A1A] to-[#444] rounded-full text-white flex flex-col items-center justify-center absolute -bottom-2 z-30 hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] hover:scale-105 transition-all shadow-2xl group border-[4px] border-white">
+              <button onClick={() => triggerLoading()} className="w-[90px] h-[90px] bg-gradient-to-br from-[#1A1A1A] to-[#444] rounded-full text-white flex flex-col items-center justify-center absolute -bottom-2 z-30 hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] hover:scale-105 transition-all shadow-2xl group border-[4px] border-white">
                 <span className="font-sans font-bold text-[10px] uppercase tracking-widest leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#FFB84D] group-hover:to-[#FF3366]">Explore<br/>Now</span>
               </button>
             </div>
@@ -162,12 +155,12 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-8 lg:px-12">
            {bestSellers.map((product, idx) => (
               <motion.div key={idx} whileHover={{ y: -10 }} className={`bg-white border border-[#EAEAEA] rounded-[2rem] flex flex-col h-[480px] relative group transition-all duration-500 overflow-hidden ${product.glow}`}>
-                 <button className="absolute top-6 right-6 z-20 p-2 bg-white/50 backdrop-blur-md rounded-full shadow-sm hover:scale-110 transition-transform">
+                 <button onClick={() => triggerLoading()} className={`absolute top-6 right-6 z-20 p-2 rounded-full shadow-sm hover:scale-110 transition-transform ${idx === 0 ? 'bg-[#F2E5EC] drop-shadow-sm' : 'bg-white/50 backdrop-blur-md'}`}>
                    <svg width="20" height="20" viewBox="0 0 24 24" fill={idx === 0 ? "#FF3366" : "none"} stroke={idx === 0 ? "#FF3366" : "#CCC"} strokeWidth="2.5">
                       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                    </svg>
                  </button>
-                 <Link href={`/product/${product.slug}`} className="flex-1 w-full relative pt-12 px-8 flex items-center justify-center bg-gradient-to-b from-[#FDFDFD] to-[#F9F9F9]">
+                 <Link href={`/product/${product.slug}`} onClick={() => triggerLoading()} className="flex-1 w-full relative pt-12 px-8 flex items-center justify-center bg-gradient-to-b from-[#FDFDFD] to-[#F9F9F9]">
                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                    <Image src={product.image} alt={product.name} fill className="object-contain p-12 mix-blend-multiply group-hover:scale-110 group-hover:-translate-y-4 transition-transform duration-700 ease-out drop-shadow-xl" />
                  </Link>
@@ -177,7 +170,7 @@ export default function Home() {
                    </div>
                    <div className="w-full flex border-t border-[#EAEAEA]">
                       <div className="w-1/2 py-4 text-center text-[14px] font-extrabold text-[#1A1A1A] border-r border-[#EAEAEA] bg-[#FAFAFA]">${product.price}.00</div>
-                      <button className="w-1/2 py-4 text-center text-[12px] font-bold tracking-widest uppercase text-[#FF5E8E] bg-white group-hover:bg-gradient-to-r group-hover:from-[#FF5E8E] group-hover:to-[#9933FF] group-hover:text-white transition-all duration-500 relative overflow-hidden">
+                      <button onClick={() => triggerLoading()} className={`w-1/2 py-4 text-center text-[12px] font-bold tracking-widest uppercase transition-all duration-500 relative overflow-hidden ${idx === 0 ? 'bg-gradient-to-r from-[#FF5E8E] to-[#9933FF] text-white' : 'text-[#FF5E8E] bg-white hover:bg-[#FAFAFA]'}`}>
                         <span className="relative z-10">Add to cart</span>
                       </button>
                    </div>
@@ -215,7 +208,7 @@ export default function Home() {
               
               <div className="flex justify-between items-center relative z-10 mt-2">
                  <span className="font-bold text-2xl drop-shadow-md">${item.price}</span>
-                 <button className={`bg-transparent border-2 border-white/60 ${item.textColor} px-6 py-3.5 rounded-full text-[10px] font-extrabold tracking-widest uppercase hover:bg-white hover:text-[#1A1A1A] hover:border-white transition-all shadow-lg backdrop-blur-sm`}>Add to Cart</button>
+                 <button onClick={() => triggerLoading()} className={`bg-transparent border-2 border-white/60 ${item.textColor} px-6 py-3.5 rounded-full text-[10px] font-extrabold tracking-widest uppercase hover:bg-white hover:text-[#1A1A1A] hover:border-white transition-all shadow-lg backdrop-blur-sm`}>Add to Cart</button>
               </div>
             </div>
           ))}
@@ -250,7 +243,7 @@ export default function Home() {
                   </div>
                 </label>
              </div>
-             <button className="bg-gradient-to-r from-[#FF5E1A] to-[#D47A8F] text-white px-8 py-5 rounded-full text-[12px] font-extrabold tracking-widest uppercase w-full hover:shadow-[0_10px_30px_rgba(212,122,143,0.4)] hover:scale-[1.02] transition-all">
+             <button onClick={() => triggerLoading()} className="bg-gradient-to-r from-[#FF5E1A] to-[#D47A8F] text-white px-8 py-5 rounded-full text-[12px] font-extrabold tracking-widest uppercase w-full hover:shadow-[0_10px_30px_rgba(212,122,143,0.4)] hover:scale-[1.02] transition-all">
                 Order Discovery Set - $39
              </button>
           </div>
