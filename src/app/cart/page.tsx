@@ -7,32 +7,7 @@ import Footer from "@/components/Footer";
 export default function CartPage() {
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 bg-surface/95 backdrop-blur-xl border-b border-surface-dim shadow-[0_1px_12px_rgba(27,28,26,0.03)]">
-        <div className="h-20 w-full px-8 md:px-10 flex items-center justify-between">
-          <nav className="w-1/3 flex items-center justify-start gap-6 whitespace-nowrap">
-            <Link href="/#chromatic-vault" className="text-xs uppercase tracking-[0.14em] font-medium text-neutral-700 hover:text-neutral-900 transition-colors">The Flacons</Link>
-            <Link href="/product/cologne-discovery-collection" className="text-xs uppercase tracking-[0.14em] font-medium text-neutral-700 hover:text-neutral-900 transition-colors">Discovery Vault</Link>
-            <Link href="/journal" className="text-xs uppercase tracking-[0.14em] font-medium text-neutral-700 hover:text-neutral-900 transition-colors">Olfactive Journal</Link>
-            <Link href="/atelier" className="text-xs uppercase tracking-[0.14em] font-medium text-neutral-700 hover:text-neutral-900 transition-colors">Atelier</Link>
-          </nav>
-          <div className="w-1/3 flex flex-col items-center justify-center text-center">
-            <Link href="/" className="flex flex-col items-center group cursor-pointer">
-              <span className="text-2xl font-semibold uppercase tracking-[0.24em] text-neutral-950 transition-colors group-hover:text-primary font-headline-md">One of None</span>
-              <span className="text-[9px] font-bold tracking-[0.4em] text-primary font-sans uppercase mt-0.5 whitespace-nowrap">Haute Parfumerie</span>
-            </Link>
-          </div>
-          <div className="w-1/3 flex items-center justify-end gap-6 text-xs uppercase tracking-wider text-neutral-700 whitespace-nowrap">
-            <button className="flex items-center gap-1.5 hover:text-neutral-900 transition-colors" type="button">
-              <span className="material-symbols-outlined text-[19px]">search</span>
-              <span className="hidden xl:inline">Search</span>
-            </button>
-            <Link href="/cart" className="flex items-center gap-1.5 hover:text-neutral-900 transition-colors text-primary font-bold">
-              <span className="material-symbols-outlined text-[19px]" style={{ fontVariationSettings: "'FILL' 1" }}>shopping_bag</span>
-              <span>Bag [1]</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+
 
       <main className="w-full pt-32 pb-24 px-8 lg:px-12 max-w-6xl mx-auto min-h-[85vh] bg-surface text-on-surface">
         <div className="flex items-center gap-3 mb-12">

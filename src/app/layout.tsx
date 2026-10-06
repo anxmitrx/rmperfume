@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 import { LoadingProvider } from "@/components/LoadingScreen";
+import { Header } from "@/components/Header";
 
 export default function RootLayout({
   children,
@@ -29,6 +30,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans bg-surface text-on-surface">
         <LoadingProvider>
+          <Header />
           {children}
         </LoadingProvider>
       </body>

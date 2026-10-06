@@ -259,32 +259,7 @@ export default function ProductPage() {
   
   return (
     <main className="bg-[#FCFCFA] min-h-screen text-[#1A1A1A] selection:bg-[#B3441B] selection:text-white">
-      <header className="fixed top-0 left-0 w-full z-50 bg-[#FCFCFA]/90 backdrop-blur-xl border-b border-[#F0EFEA] shadow-[0_1px_12px_rgba(27,28,26,0.02)]">
-        <div className="h-20 w-full px-8 md:px-10 flex items-center justify-between">
-          <nav className="w-1/3 flex items-center justify-start gap-6 whitespace-nowrap">
-            <Link href="/#chromatic-vault" className="text-[10px] uppercase tracking-[0.18em] font-medium text-neutral-500 hover:text-neutral-900 transition-colors">The Flacons</Link>
-            <Link href="/product/cologne-discovery-collection" className="text-[10px] uppercase tracking-[0.18em] font-medium text-neutral-500 hover:text-neutral-900 transition-colors">Discovery Vault</Link>
-            <Link href="/journal" className="text-[10px] uppercase tracking-[0.18em] font-medium text-neutral-500 hover:text-neutral-900 transition-colors">Olfactive Journal</Link>
-            <Link href="/atelier" className="text-[10px] uppercase tracking-[0.18em] font-medium text-neutral-500 hover:text-neutral-900 transition-colors">Atelier</Link>
-          </nav>
-          <div className="w-1/3 flex flex-col items-center justify-center text-center">
-            <Link href="/" className="flex flex-col items-center group cursor-pointer">
-              <span className="text-xl font-bold uppercase tracking-[0.28em] text-[#1A1A1A] transition-colors group-hover:text-[#B3441B] font-headline-md">One of None</span>
-              <span className="text-[8px] font-bold tracking-[0.4em] text-[#B3441B] font-sans uppercase mt-1 whitespace-nowrap">Haute Parfumerie</span>
-            </Link>
-          </div>
-          <div className="w-1/3 flex items-center justify-end gap-6 text-[10px] uppercase tracking-[0.15em] font-medium text-neutral-500 whitespace-nowrap">
-            <button className="flex items-center gap-1.5 hover:text-neutral-900 transition-colors" type="button">
-              <span className="material-symbols-outlined text-[18px]">search</span>
-              <span className="hidden xl:inline">Search</span>
-            </button>
-            <Link href="/cart" className="flex items-center gap-1.5 hover:text-neutral-900 transition-colors text-[#1A1A1A]">
-              <span className="material-symbols-outlined text-[18px]">shopping_bag</span>
-              <span>Bag</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+
 
       {/* Product Hero */}
       <section className="pt-24 lg:pt-20 lg:min-h-screen flex flex-col lg:flex-row bg-[#FCFCFA]">

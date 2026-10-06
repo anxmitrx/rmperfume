@@ -28,59 +28,35 @@ export default function Home() {
 
   return (
     <div className="min-h-screen font-sans w-full text-[#1A1A1A] overflow-x-hidden flex flex-col selection:bg-[#FF3366] selection:text-white bg-[#F5F0E6]">
-      
-      {/* SECTION 1: Minimalist Navigation Bar */}
-      <header className="absolute top-0 left-0 w-full flex items-center justify-between px-8 md:px-12 py-8 z-50">
-        <Link href="/" onClick={() => triggerLoading()} className="flex items-center cursor-pointer relative w-[240px] h-[30px] md:h-[40px] lg:w-[320px] lg:h-[45px] z-10">
-           <Image src="/images/logo2.png" alt="ONE OF NONE" fill className="object-contain object-left mix-blend-multiply" priority />
-        </Link>
-        
-        <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 items-center gap-10 font-medium text-[13px] tracking-wide text-[#1A1A1A] z-10">
-          {['Perfume', 'Brand', 'Shop', 'Outfit', 'Guide'].map(item => (
-             <Link key={item} href="#" onClick={() => triggerLoading()} className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#FF5E8E] hover:to-[#9933FF] transition-all font-bold">
-               {item}
-             </Link>
-          ))}
-        </nav>
-        
-        <div className="flex items-center gap-6">
-          <button className="text-[#1A1A1A] hover:text-[#FF3366] transition-colors">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          </button>
-          <div className="p-[2px] rounded-full bg-gradient-to-r from-[#FFB84D] via-[#FF3366] to-[#9933FF] hover:shadow-[0_0_15px_rgba(255,51,102,0.4)] transition-all">
-            <Link href="/cart" onClick={() => triggerLoading()} className="flex items-center gap-3 bg-white/90 backdrop-blur-sm pl-5 pr-2 py-2 rounded-full group">
-              <span className="text-[13px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E8E] to-[#9933FF]">Cart</span>
-              <div className="w-7 h-7 bg-gradient-to-br from-[#1A1A1A] to-[#333] text-white rounded-full flex items-center justify-center text-[11px] font-bold shadow-md">0</div>
-            </Link>
-          </div>
-        </div>
-      </header>
 
       {/* SECTION 2: Editorial Hero Section */}
-      <section className="relative w-full pt-32 pb-32 px-4 md:px-8 flex flex-col items-center overflow-hidden">
+      <section className="relative w-full pt-32 pb-32 px-4 md:px-8 flex flex-col items-center overflow-hidden bg-[#FFFBF7]">
         {/* Cinematic Aurora Gradient Mesh */}
-        <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-gradient-to-tr from-[#FF8F5E] via-[#FF3366] to-[#A233FF] blur-[100px] opacity-60 rounded-[100%] pointer-events-none z-0"></div>
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-[#FFB84D] to-transparent blur-[90px] opacity-50 rounded-full pointer-events-none z-0"></div>
+        <div className="absolute top-[45%] left-1/2 -translate-x-[70%] -translate-y-1/2 w-[400px] h-[300px] bg-[#FFB84D] blur-[100px] opacity-60 rounded-full pointer-events-none z-0"></div>
+        <div className="absolute top-[45%] left-1/2 -translate-x-[20%] -translate-y-1/2 w-[450px] h-[350px] bg-[#FFC0CB] blur-[100px] opacity-50 rounded-full pointer-events-none z-0"></div>
         
-        <div className="w-full relative flex flex-col items-center mt-10 max-w-[1400px] mx-auto z-10">
+        <div className="w-full relative flex flex-col items-center mt-8 max-w-[1400px] mx-auto z-10">
           
           {/* Floating Left */}
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }} className="absolute left-0 top-16 flex flex-col gap-8 w-48 hidden lg:flex z-20">
-            <div className="w-[170px] h-[220px] rounded-t-[100px] rounded-b-2xl overflow-hidden relative shadow-[0_0_40px_rgba(255,102,153,0.3)] bg-white/40 backdrop-blur-md border border-white/60 p-2">
-              <div className="w-full h-full relative rounded-t-[90px] rounded-b-xl overflow-hidden">
+          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }} className="absolute left-0 top-8 flex flex-col gap-6 w-48 hidden lg:flex z-20">
+            {/* Decorative arcs */}
+            <div className="absolute -top-6 -left-6 w-32 h-32 border-t border-l border-[#EAEAEA] rounded-tl-full opacity-60"></div>
+            <div className="absolute -top-3 -left-3 w-32 h-32 border-t border-l border-[#EAEAEA] rounded-tl-full opacity-60"></div>
+            
+            <div className="w-[170px] h-[190px] rounded-t-full rounded-b-[2rem] overflow-hidden relative bg-white shadow-sm p-0 z-10">
+              <div className="w-full h-full relative rounded-t-full rounded-b-[1.8rem] overflow-hidden">
                  <Image src="/images/perfume_stay_a_little_longer.jpg" alt="Floral Fragrance" fill className="object-cover mix-blend-multiply" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#FF3366]/20 to-transparent"></div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 pl-3">
+            <div className="flex flex-col gap-3 pl-2 mt-4">
               {[
                 { name: "Fresh Fragrances", active: true },
                 { name: "Floral Fragrances", active: false },
                 { name: "Oceanic Fragrances", active: false }
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 text-[12px] font-bold text-[#1A1A1A]">
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center ${item.active ? 'bg-gradient-to-br from-[#FFB84D] to-[#FF3366] shadow-lg shadow-[#FF3366]/30' : 'bg-white/60 border border-[#FF9EBA]'}`}>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={item.active ? "white" : "#FF9EBA"} strokeWidth="2.5"><path d="M12 2C8 2 4 6 4 10C4 14.4 12 22 12 22C12 22 20 14.4 20 10C20 6 16 2 12 2Z"/></svg>
+                <div key={i} className="flex items-center gap-3 text-[11px] text-[#1A1A1A] font-medium">
+                  <div className={`w-3.5 h-3.5 rounded-full border border-[#D0D0D0] flex items-center justify-center bg-white`}>
+                    {item.active && <div className="w-2 h-2 rounded-full bg-[#FFB8C6]"></div>}
                   </div>
                   {item.name}
                 </div>
@@ -89,46 +65,55 @@ export default function Home() {
           </motion.div>
           
           {/* Floating Right */}
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.2 }} className="absolute right-0 top-24 flex flex-col gap-10 w-48 hidden lg:flex items-end z-20">
-            <div className="w-[170px] h-[220px] rounded-t-[100px] rounded-b-2xl overflow-hidden relative shadow-[0_0_40px_rgba(153,102,255,0.3)] bg-white/40 backdrop-blur-md border border-white/60 p-2">
-               <div className="w-full h-full relative rounded-t-[90px] rounded-b-xl overflow-hidden">
-                  <Image src="/images/perfume_off_the_grid.jpg" alt="Classic Fragrance" fill className="object-cover mix-blend-multiply" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#9933FF]/20 to-transparent"></div>
+          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.2 }} className="absolute right-0 top-16 flex flex-col gap-8 w-48 hidden lg:flex items-start z-20">
+            <div className="w-[170px] h-[190px] rounded-t-full rounded-b-[2rem] overflow-hidden relative bg-[#EAEAEA]/30 p-4 flex items-center justify-center">
+               <div className="w-full h-full relative mix-blend-multiply">
+                  <Image src="/images/perfume_off_the_grid.jpg" alt="Classic Fragrance" fill className="object-contain" />
                </div>
             </div>
-            <div className="flex items-center gap-3 bg-gradient-to-r from-white/90 to-white/70 backdrop-blur-xl p-2 pr-5 rounded-full shadow-[0_10px_30px_rgba(153,102,255,0.2)] mr-4 border border-white/50">
-              <div className="flex -space-x-3">
-                 <div className="w-10 h-10 rounded-full border-2 border-white overflow-hidden relative shadow-md"><Image src="/images/perfume_stay_a_little_longer.jpg" fill alt="avatar" className="object-cover" /></div>
-                 <div className="w-10 h-10 rounded-full border-2 border-white overflow-hidden relative shadow-md"><Image src="/images/perfume_better_in_person.jpg" fill alt="avatar" className="object-cover" /></div>
-                 <div className="w-10 h-10 rounded-full border-2 border-white overflow-hidden relative shadow-md"><Image src="/images/perfume_main_character.jpg" fill alt="avatar" className="object-cover" /></div>
+            <div className="flex items-center gap-3 mt-4">
+              <div className="flex -space-x-2">
+                 <div className="w-7 h-7 rounded-full border-2 border-white overflow-hidden relative"><Image src="/images/perfume_stay_a_little_longer.jpg" fill alt="avatar" className="object-cover" /></div>
+                 <div className="w-7 h-7 rounded-full border-2 border-white overflow-hidden relative"><Image src="/images/perfume_better_in_person.jpg" fill alt="avatar" className="object-cover" /></div>
+                 <div className="w-7 h-7 rounded-full border-2 border-white overflow-hidden relative"><Image src="/images/perfume_main_character.jpg" fill alt="avatar" className="object-cover" /></div>
               </div>
-              <div className="text-[10px] font-bold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#FF3366] to-[#9933FF]">
-                500k+<br/>Reviews
+              <div className="text-[10px] font-medium leading-tight text-[#1A1A1A]">
+                150+ Well<br/>Reviews
               </div>
             </div>
           </motion.div>
           
           {/* Typography */}
           <div className="text-center flex flex-col items-center z-10 w-full max-w-4xl mx-auto mt-4">
-            <h1 className="font-serif text-[80px] md:text-[130px] leading-[0.95] tracking-tight relative z-10 drop-shadow-[0_4px_20px_rgba(255,51,102,0.15)] text-[#1A1A1A]">
-              The <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#FFB84D] via-[#FF5E8E] to-[#9933FF]">Fragrance</span>
+            <h1 className="font-serif text-[80px] md:text-[130px] leading-[0.9] tracking-tight relative z-10 text-[#1A1A1A]">
+              The Fragranc<span className="relative">e
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="white" stroke="#1A1A1A" strokeWidth="1" className="absolute top-1/2 left-full transform -translate-y-1/2 -translate-x-4 rotate-[10deg] z-20">
+                  <path d="M4 4l16 5.333L12 12l-2.667 8L4 4z" />
+                </svg>
+              </span>
             </h1>
-            <h1 className="font-serif text-[80px] md:text-[130px] leading-[0.95] text-[#1A1A1A] tracking-tight relative z-10 mt-2">
-              of Life
+            <h1 className="font-serif text-[80px] md:text-[130px] leading-[0.9] text-[#1A1A1A] tracking-tight relative z-10 mt-2">
+              of Lif<span className="relative">e
+                <svg viewBox="0 0 100 100" className="absolute -top-12 -right-24 w-[160px] h-[160px] overflow-visible pointer-events-none transform rotate-[20deg] origin-center">
+                  <path id="circle-path" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent" />
+                  <text className="text-[9px] tracking-[0.2em] font-sans fill-[#1A1A1A]">
+                    <textPath href="#circle-path" startOffset="30%">the perfume world.</textPath>
+                  </text>
+                </svg>
+              </span>
             </h1>
-            <p className="text-[#333] text-[13px] font-bold mt-10 tracking-widest uppercase bg-white/40 px-6 py-2 rounded-full backdrop-blur-sm border border-white/60 shadow-sm">
-              Our Popular Colognes on 2023 at a discount
+            <p className="text-[#1A1A1A] text-[13px] font-medium mt-12 tracking-wide">
+              Buy Popular Colognes on Sale at a Discount
             </p>
             
             {/* Promotion Badge & Explore Button Group */}
-            <div className="relative mt-16 z-30 flex flex-col items-center pb-12">
-              <div className="bg-gradient-to-r from-[#FFD1FF] via-[#E0C3FC] to-[#8EC5FC] rounded-[100%] w-[320px] h-[120px] shadow-[0_10px_40px_rgba(153,102,255,0.3)] border-2 border-white flex flex-col items-center justify-start pt-6 relative z-20 overflow-hidden group">
-                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
-                 <span className="text-white drop-shadow-md font-serif italic text-[42px] font-bold leading-none mb-1 relative z-10">25% Off</span>
-                 <span className="text-[#1A1A1A] text-[11px] font-extrabold uppercase tracking-widest mt-1 relative z-10 bg-white/50 px-4 py-1 rounded-full backdrop-blur-sm">on all New Arrivals</span>
+            <div className="relative mt-20 z-30 flex flex-col items-center pb-12">
+              <div className="bg-white rounded-[100%] border border-[#EAEAEA] flex flex-col items-center justify-center relative z-20 shadow-sm w-[280px] h-[90px]">
+                 <span className="text-[#8DA4F7] text-[38px] leading-none mb-1" style={{ fontFamily: 'cursive' }}>25% Off</span>
+                 <span className="text-[#1A1A1A] text-[11px] font-bold">on all New Arrivals</span>
               </div>
-              <button onClick={() => triggerLoading()} className="w-[90px] h-[90px] bg-gradient-to-br from-[#1A1A1A] to-[#444] rounded-full text-white flex flex-col items-center justify-center absolute -bottom-2 z-30 hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] hover:scale-105 transition-all shadow-2xl group border-[4px] border-white">
-                <span className="font-sans font-bold text-[10px] uppercase tracking-widest leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#FFB84D] group-hover:to-[#FF3366]">Explore<br/>Now</span>
+              <button onClick={() => triggerLoading()} className="w-[64px] h-[64px] bg-[#1A1A1A] rounded-full text-white flex flex-col items-center justify-center absolute -bottom-6 z-30 hover:scale-105 transition-transform shadow-lg">
+                <span className="text-[14px] leading-tight" style={{ fontFamily: 'cursive' }}>Explore<br/>Now</span>
               </button>
             </div>
           </div>
@@ -136,47 +121,92 @@ export default function Home() {
       </section>
 
       {/* SECTION 3: "Best Selling Product" Carousel */}
-      <section className="w-full bg-[#F5F0E6]/60 backdrop-blur-lg pt-32 pb-24 border-t border-white/50 relative z-20 shadow-[0_-20px_50px_rgba(255,255,255,0.5)]">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-12 flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+      <section className="w-full bg-white pt-24 pb-24 relative z-20">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-12 flex flex-col md:flex-row justify-between items-end mb-6">
            <h2 className="font-serif text-[42px] text-[#1A1A1A] flex items-start gap-1 relative tracking-tight">
              Best Selling Product
-             <svg width="16" height="16" viewBox="0 0 24 24" fill="url(#star-grad)" className="absolute -top-1 -right-6"><defs><linearGradient id="star-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#FFB84D" /><stop offset="100%" stopColor="#FF3366" /></linearGradient></defs><path d="M12 2L15 10H22L16 15L18 22L12 18L6 22L8 15L2 10H9L12 2Z"/></svg>
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="absolute -top-2 -right-6 text-[#1A1A1A]">
+                <path d="M12 3L20 18H4L12 3Z"/>
+             </svg>
            </h2>
-           <div className="flex gap-4">
-             <button className="w-12 h-12 rounded-full border-2 border-[#EAEAEA] flex items-center justify-center text-[#1A1A1A] hover:border-[#FF3366] hover:text-[#FF3366] transition-colors bg-white">
-               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M5 12L12 19M5 12L12 5"/></svg>
+           <div className="flex gap-2 mb-2">
+             <button className="w-12 h-10 flex items-center justify-center text-[#666] hover:text-[#1A1A1A] transition-colors">
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M19 12H5M5 12L12 19M5 12L12 5"/></svg>
              </button>
-             <button className="w-12 h-12 rounded-full bg-gradient-to-r from-[#FF5E8E] to-[#9933FF] flex items-center justify-center text-white hover:shadow-[0_0_20px_rgba(153,51,255,0.4)] hover:scale-105 transition-all">
-               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12H19M19 12L12 19M19 12L12 5"/></svg>
+             <button className="w-12 h-10 flex items-center justify-center text-[#666] hover:text-[#1A1A1A] transition-colors">
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><path d="M5 12H19M19 12L12 19M19 12L12 5"/></svg>
              </button>
            </div>
         </div>
         
-        <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-8 lg:px-12">
-           {bestSellers.map((product, idx) => (
-              <motion.div key={idx} whileHover={{ y: -10 }} className={`bg-[#FAF7F2] border border-[#EAEAEA] rounded-[2rem] flex flex-col h-[480px] relative group transition-all duration-500 overflow-hidden ${product.glow}`}>
-                 <button onClick={() => triggerLoading()} className={`absolute top-6 right-6 z-20 p-2 rounded-full shadow-sm hover:scale-110 transition-transform ${idx === 0 ? 'bg-[#F2E5EC] drop-shadow-sm' : 'bg-white/50 backdrop-blur-md'}`}>
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill={idx === 0 ? "#FF3366" : "none"} stroke={idx === 0 ? "#FF3366" : "#CCC"} strokeWidth="2.5">
-                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                   </svg>
-                 </button>
-                 <Link href={`/product/${product.slug}`} onClick={() => triggerLoading()} className="flex-1 w-full relative pt-12 px-8 flex items-center justify-center bg-gradient-to-b from-[#FDFDFD] to-[#F9F9F9]">
-                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                   <Image src={product.image} alt={product.name} fill className="object-contain p-12 mix-blend-multiply group-hover:scale-110 group-hover:-translate-y-4 transition-transform duration-700 ease-out drop-shadow-xl" />
-                 </Link>
-                 <div className="w-full flex flex-col bg-white relative z-10">
-                   <div className="p-6 text-center">
-                     <h3 className="font-bold text-[#1A1A1A] text-[16px] tracking-wide">{product.name}</h3>
+        <div className="max-w-[1400px] mx-auto w-full border-t border-b border-[#EAEAEA]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+             {bestSellers.map((product, idx) => (
+                <div key={idx} className={`bg-white border-r border-[#EAEAEA] flex flex-col h-[480px] relative group ${idx === bestSellers.length - 1 ? 'border-r-0 lg:border-r' : ''} ${idx === 0 ? 'lg:border-l' : ''}`}>
+                   <button onClick={() => triggerLoading()} className="absolute top-4 right-4 z-20 p-2 text-center">
+                     <svg width="14" height="14" viewBox="0 0 24 24" fill={idx === 0 ? "#FF3366" : "#E0E0E0"} stroke="none">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                     </svg>
+                   </button>
+                   <Link href={`/product/${product.slug}`} onClick={() => triggerLoading()} className="flex-1 w-full relative pt-12 px-8 flex items-center justify-center bg-white">
+                     <Image src={product.image} alt={product.name} fill className="object-contain p-10 mix-blend-multiply group-hover:scale-105 transition-transform duration-500 ease-out" />
+                   </Link>
+                   <div className="w-full flex flex-col bg-white relative z-10 px-8 pb-8">
+                     <div className="text-center mb-4">
+                       <h3 className="font-bold text-[#1A1A1A] text-[13px] tracking-wide">{product.name}</h3>
+                     </div>
+                     <div className="w-full flex border border-[#EAEAEA]">
+                        <div className="w-1/2 py-2 text-center text-[12px] font-medium text-[#1A1A1A] border-r border-[#EAEAEA]">${product.price}.00</div>
+                        <button onClick={() => triggerLoading()} className="w-1/2 py-2 text-center text-[11px] font-medium text-[#1A1A1A] hover:bg-[#FAFAFA] transition-colors">
+                          Add to cart
+                        </button>
+                     </div>
                    </div>
-                   <div className="w-full flex border-t border-[#EAEAEA]">
-                      <div className="w-1/2 py-4 text-center text-[14px] font-extrabold text-[#1A1A1A] border-r border-[#EAEAEA] bg-[#FAFAFA]">${product.price}.00</div>
-                      <button onClick={() => triggerLoading()} className={`w-1/2 py-4 text-center text-[12px] font-bold tracking-widest uppercase transition-all duration-500 relative overflow-hidden ${idx === 0 ? 'bg-gradient-to-r from-[#FF5E8E] to-[#9933FF] text-white' : 'text-[#FF5E8E] bg-white hover:bg-[#FAFAFA]'}`}>
-                        <span className="relative z-10">Add to cart</span>
-                      </button>
-                   </div>
-                 </div>
-              </motion.div>
-           ))}
+                </div>
+             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 3.5: High Quality Core Value */}
+      <section className="w-full bg-white py-32 px-8 lg:px-12 border-t border-[#EAEAEA]">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          
+          {/* Left Content */}
+          <div className="flex flex-col items-start max-w-xl">
+            <h2 className="font-serif text-[42px] md:text-[46px] leading-[1.2] text-[#1A1A1A] mb-6">
+              High quality is the only <span className="whitespace-nowrap">c<span className="relative inline-block">o
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="absolute -top-3 left-1/2 -translate-x-1/2 text-[#1A1A1A]">
+                  <path d="M12 3L20 18H4L12 3Z"/>
+                </svg>
+              </span>re</span><br />value for us.
+            </h2>
+            <p className="text-[#666] text-[13px] leading-[2] mb-12 font-medium">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            </p>
+            <button onClick={() => triggerLoading()} className="bg-[#FDB560] text-white px-8 py-3.5 rounded-full text-[13px] font-medium hover:bg-[#FCA036] hover:shadow-[0_10px_20px_rgba(253,181,96,0.3)] transition-all">
+              Explore More
+            </button>
+          </div>
+          
+          {/* Right Images Collage */}
+          <div className="relative w-full aspect-square lg:aspect-auto lg:h-[600px]">
+            {/* Left tall image */}
+            <div className="absolute left-0 top-[10%] w-[48%] h-[90%] overflow-hidden bg-[#FAFAFA] shadow-sm">
+               <Image src="/images/storytelling_1.jpg" alt="Quality Perfume" fill className="object-cover" />
+            </div>
+            
+            {/* Top right square image */}
+            <div className="absolute right-0 top-0 w-[48%] h-[55%] overflow-hidden bg-[#FAFAFA] shadow-sm">
+               <Image src="/images/storytelling_2.jpg" alt="Elegant Fragrance" fill className="object-cover" />
+            </div>
+            
+            {/* Bottom right wide image */}
+            <div className="absolute right-0 bottom-0 w-[48%] h-[30%] overflow-hidden bg-[#FAFAFA] shadow-sm">
+               <Image src="/images/product_base_notes.jpg" alt="Botanical Ingredients" fill className="object-cover" />
+            </div>
+          </div>
+          
         </div>
       </section>
 
