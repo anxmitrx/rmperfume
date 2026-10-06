@@ -3,531 +3,392 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Footer from "@/components/Footer";
+import { motion } from "framer-motion";
+
+const bestSellers = [
+  { slug: "valentino", name: "Valentino", price: 15, image: "/images/perfume_stay_a_little_longer.jpg", glow: "group-hover:shadow-[0_0_40px_rgba(255,102,153,0.3)]" },
+  { slug: "chanel-n5", name: "Chanel N°5", price: 22, image: "/images/perfume_off_the_grid.jpg", glow: "group-hover:shadow-[0_0_40px_rgba(255,178,102,0.3)]" },
+  { slug: "miss-dior", name: "Miss Dior", price: 20, image: "/images/perfume_better_in_person.jpg", glow: "group-hover:shadow-[0_0_40px_rgba(153,102,255,0.3)]" },
+  { slug: "coco-chanel", name: "Coco Chanel Paris", price: 16, image: "/images/perfume_main_character.jpg", glow: "group-hover:shadow-[0_0_40px_rgba(102,204,255,0.3)]" }
+];
+
+const chromaticVault = [
+  { name: "Off The Grid", color: "bg-gradient-to-br from-[#FF5E1A] to-[#FF8C00]", price: 135, image: "/images/perfume_off_the_grid.jpg", textColor: "text-white" },
+  { name: "Better Than Yesterday", color: "bg-gradient-to-br from-[#7B1E29] to-[#A12B44]", price: 140, image: "/images/perfume_better_than_yesterday.jpg", textColor: "text-white" },
+  { name: "Stay A Little Longer", color: "bg-gradient-to-br from-[#5A3E92] to-[#884DFF]", price: 155, image: "/images/perfume_stay_a_little_longer.jpg", textColor: "text-white" },
+  { name: "Main Character", color: "bg-gradient-to-br from-[#3B82F6] to-[#00A3E0]", price: 125, image: "/images/perfume_main_character.jpg", textColor: "text-white" },
+  { name: "Golden Hour", color: "bg-gradient-to-br from-[#E4A834] to-[#FFD166]", price: 160, image: "/images/perfume_better_in_person.jpg", textColor: "text-[#4A2E00]" },
+  { name: "Bad Influence", color: "bg-gradient-to-br from-[#D47A8F] to-[#FF99B3]", price: 145, image: "/images/perfume_bad_influence.jpg", textColor: "text-white" }
+];
 
 export default function Home() {
-  const [activeFilter, setActiveFilter] = useState("all");
-
-  const filterProducts = (filter: string) => {
-    setActiveFilter(filter);
-  };
+  const [selectedDiscovery, setSelectedDiscovery] = useState(0);
 
   return (
-    <>
-      <header className="fixed top-0 left-0 w-full z-50 bg-surface/95 backdrop-blur-xl border-b border-surface-dim shadow-[0_1px_12px_rgba(27,28,26,0.03)]">
-        <div className="bg-surface-container-high px-8 md:px-10 py-space-xs text-center flex items-center justify-center gap-space-sm">
-          <span className="font-label-sm text-label-sm text-on-surface uppercase tracking-widest">Complimentary Extrait Duo with Orders Exceeding £240</span>
-          <span className="text-on-surface-variant font-body-sm text-body-sm">·</span>
-          <span className="font-label-sm text-label-sm text-primary tracking-widest uppercase">Code: ARCHIVE</span>
+    <div className="min-h-screen font-sans w-full text-[#1A1A1A] overflow-x-hidden flex flex-col selection:bg-[#FF3366] selection:text-white bg-[#FFF6F2]">
+      
+      {/* SECTION 1: Minimalist Navigation Bar */}
+      <header className="absolute top-0 left-0 w-full flex items-center justify-between px-8 md:px-12 py-8 z-50">
+        <div className="flex items-center gap-2 cursor-pointer group">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#starburst-grad)" strokeWidth="2" className="group-hover:rotate-180 transition-transform duration-700">
+            <defs>
+              <linearGradient id="starburst-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FFB84D" />
+                <stop offset="100%" stopColor="#FF3366" />
+              </linearGradient>
+            </defs>
+            <path d="M12 2L15 10H22L16 15L18 22L12 18L6 22L8 15L2 10H9L12 2Z" />
+          </svg>
+          <span className="text-3xl font-serif font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#1A1A1A] to-[#4A1A1A]">Amour</span>
         </div>
-        <div className="h-20 w-full px-8 md:px-10 flex items-center justify-between">
-          <nav className="w-1/3 flex items-center justify-start gap-6 whitespace-nowrap">
-            <Link href="#chromatic-vault" className="text-xs uppercase tracking-[0.14em] font-medium text-neutral-700 hover:text-neutral-900 transition-colors">The Flacons</Link>
-            <Link href="/product/cologne-discovery-collection" className="text-xs uppercase tracking-[0.14em] font-medium text-neutral-700 hover:text-neutral-900 transition-colors">Discovery Vault</Link>
-            <Link href="/journal" className="text-xs uppercase tracking-[0.14em] font-medium text-neutral-700 hover:text-neutral-900 transition-colors">Olfactive Journal</Link>
-            <Link href="/atelier" className="text-xs uppercase tracking-[0.14em] font-medium text-neutral-700 hover:text-neutral-900 transition-colors">Atelier</Link>
-          </nav>
-          <div className="w-1/3 flex flex-col items-center justify-center text-center">
-            <Link href="#" className="flex flex-col items-center group cursor-pointer">
-              <span className="text-2xl font-semibold uppercase tracking-[0.24em] text-neutral-950 transition-colors group-hover:text-primary font-headline-md">One of None</span>
-              <span className="text-[9px] font-bold tracking-[0.4em] text-primary font-sans uppercase mt-0.5 whitespace-nowrap">Haute Parfumerie</span>
+        
+        <nav className="hidden md:flex items-center gap-10 font-medium text-[13px] tracking-wide text-[#1A1A1A]">
+          {['Perfume', 'Brand', 'Shop', 'Outfit', 'Guide'].map(item => (
+             <Link key={item} href="#" className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#FF5E8E] hover:to-[#9933FF] transition-all font-bold">
+               {item}
+             </Link>
+          ))}
+        </nav>
+        
+        <div className="flex items-center gap-6">
+          <button className="text-[#1A1A1A] hover:text-[#FF3366] transition-colors">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+          <div className="p-[2px] rounded-full bg-gradient-to-r from-[#FFB84D] via-[#FF3366] to-[#9933FF] hover:shadow-[0_0_15px_rgba(255,51,102,0.4)] transition-all">
+            <Link href="/cart" className="flex items-center gap-3 bg-white/90 backdrop-blur-sm pl-5 pr-2 py-2 rounded-full group">
+              <span className="text-[13px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E8E] to-[#9933FF]">Cart</span>
+              <div className="w-7 h-7 bg-gradient-to-br from-[#1A1A1A] to-[#333] text-white rounded-full flex items-center justify-center text-[11px] font-bold shadow-md">0</div>
             </Link>
-          </div>
-          <div className="w-1/3 flex items-center justify-end gap-6 text-xs uppercase tracking-wider text-neutral-700 whitespace-nowrap">
-            <button className="flex items-center gap-1.5 hover:text-neutral-900 transition-colors" type="button">
-              <span className="material-symbols-outlined text-[19px]">search</span>
-              <span className="hidden xl:inline">Search</span>
-            </button>
-            <div className="flex items-center tracking-wider gap-1">
-              <span className="text-neutral-900 font-semibold">GBP</span>
-              <span className="text-neutral-400">/</span>
-              <span className="hover:text-neutral-900 cursor-pointer transition-colors">USD</span>
-            </div>
-            <button className="flex items-center gap-1 hover:text-neutral-900 transition-colors relative" type="button">
-              <span className="material-symbols-outlined text-[19px]">favorite</span>
-              <span className="w-4 h-4 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[9px] flex items-center justify-center font-bold">1</span>
-            </button>
-            <button className="flex items-center gap-1.5 hover:text-neutral-900 transition-colors" type="button">
-              <span className="material-symbols-outlined text-[19px]">shopping_bag</span>
-              <span>Bag [2]</span>
-            </button>
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-primary-container transition-colors shadow-sm">
-              <span className="material-symbols-outlined text-white text-[18px]">person</span>
-            </div>
           </div>
         </div>
       </header>
-      <main className="w-full pt-28 bg-surface">
-        <div className="flex flex-col w-full">
-          {/* SECTION 1: EDITORIAL SPLIT HERO */}
-          <section className="w-full px-8 lg:px-12 py-12 relative overflow-hidden max-w-[1360px] mx-auto">
-            <div className="absolute -top-32 -left-20 w-[550px] h-[550px] rounded-full pointer-events-none -z-10" style={{ background: 'radial-gradient(circle, rgba(255,177,193,0.4) 0%, transparent 70%)' }}></div>
-            <div className="absolute top-1/3 right-10 w-[600px] h-[600px] rounded-full pointer-events-none -z-10" style={{ background: 'radial-gradient(circle, rgba(255,180,161,0.45) 0%, transparent 70%)' }}></div>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7 flex flex-col items-start pr-0 lg:pr-8">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high mb-6 shadow-sm border border-outline-variant/30">
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
-                  <span className="font-semibold text-[11px] text-on-surface uppercase tracking-[0.22em] font-body-sm">The Sensory Spectrum • Pure Perfume Extracts</span>
-                </div>
-                <h1 className="text-4xl lg:text-[54px] text-on-surface tracking-tight leading-[1.12] mb-6 font-medium font-headline-lg">
-                  Wear Your Mood In<br />
-                  <span className="inline-block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#F05A28] to-secondary italic font-normal tracking-wide drop-shadow-sm font-headline-lg">High Definition.</span>
-                </h1>
-                <p className="font-body-md text-base text-on-surface-variant max-w-xl mb-8 leading-relaxed font-normal">
-                  Haute parfumerie meets sculptural color. Six unapologetic pure perfume extracts formulated at an intense 35% essence concentration—each encased in monolithic color-blocked flacons inspired by architectural pigments and visceral human emotion.
-                </p>
-                <div className="flex flex-wrap items-center gap-4 mb-8">
-                  <a href="#chromatic-vault" className="h-12 px-8 rounded-full bg-inverse-surface text-inverse-on-surface hover:bg-primary transition-all duration-300 flex items-center justify-center font-semibold text-xs tracking-widest uppercase group shadow-lg hover:shadow-primary/30">
-                    <span className="font-body-sm">Explore 6 Extracts</span>
-                    <span className="material-symbols-outlined ml-2 text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                  </a>
-                  <button type="button" onClick={() => document.getElementById('evaporation-curve')?.scrollIntoView({behavior:'smooth'})} className="h-12 px-6 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container-high transition-colors flex items-center justify-center font-semibold text-xs tracking-widest uppercase shadow-sm border border-surface-dim">
-                    <span className="material-symbols-outlined mr-2 text-[18px] text-primary">neurology</span>
-                    <span className="font-body-sm">Take Olfactive Quiz</span>
-                  </button>
-                </div>
-                <div className="grid grid-cols-3 gap-6 pt-6 w-full max-w-lg bg-surface-container-low/80 backdrop-blur-md p-4 rounded-xl border border-outline-variant/20">
-                  <div>
-                    <span className="text-3xl text-on-surface block font-medium font-headline-md">35%</span>
-                    <span className="text-[10px] font-semibold text-on-surface-variant tracking-wider uppercase font-body-sm">Pure Extrait Oil</span>
-                  </div>
-                  <div>
-                    <span className="text-3xl text-on-surface block font-medium font-headline-md">14 hrs+</span>
-                    <span className="text-[10px] font-semibold text-on-surface-variant tracking-wider uppercase font-body-sm">Linear Projection</span>
-                  </div>
-                  <div>
-                    <span className="text-3xl text-on-surface block font-medium font-headline-md">Grasse</span>
-                    <span className="text-[10px] font-semibold text-on-surface-variant tracking-wider uppercase font-body-sm">Artisanal Foundry</span>
-                  </div>
-                </div>
-              </div>
-              <div className="lg:col-span-5 relative mt-8 lg:mt-0">
-                <div className="absolute -inset-3 rounded-2xl bg-secondary-fixed-dim/40 -rotate-1 transform-gpu -z-10"></div>
-                <div className="relative bg-surface-container-lowest p-6 rounded-2xl shadow-xl overflow-hidden border border-outline-variant/30">
-                  <div className="w-full h-72 rounded-xl overflow-hidden relative group bg-surface-container-high mb-4">
-                    <Image src="/images/perfume_off_the_grid.jpg" alt="Sculptural luxury amber glass perfume flacon" fill className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out" />
-                    <div className="absolute top-3 left-3">
-                      <span className="px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-on-surface font-black text-[10px] uppercase tracking-widest shadow-sm font-label-sm">Limited Edition No. 01</span>
-                    </div>
-                    <div className="absolute bottom-3 right-3">
-                      <span className="px-3 py-1 rounded-full bg-inverse-surface/90 backdrop-blur-md text-inverse-on-surface font-bold text-xs tracking-wider">£135 · 50ml</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <span className="text-[11px] font-bold text-primary uppercase tracking-[0.22em] block font-label-sm">Signature Premiere</span>
-                      <h2 className="text-2xl text-on-surface font-semibold tracking-wide font-headline-md">The Flacon Sextet</h2>
-                    </div>
-                    <div className="flex items-center gap-1 bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-dim">
-                      <span className="material-symbols-outlined text-primary text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="text-xs font-bold text-on-surface">4.96</span>
-                      <span className="text-[11px] text-on-surface-variant">(2.4k)</span>
-                    </div>
-                  </div>
-                  <p className="text-xs text-on-surface-variant mb-4 leading-relaxed font-body-sm">
-                    A radical synthesis of solar resins, nocturnal black plum, and hyper-modern aquatic drift. Sculpted for discerning collectors who wear scent as psychological armor.
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    <span className="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold tracking-wider uppercase font-label-sm">Solar Amber</span>
-                    <span className="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold tracking-wider uppercase font-label-sm">Burgundy Plum</span>
-                    <span className="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold tracking-wider uppercase font-label-sm">Magnetic Violet</span>
-                  </div>
-                  <Link href="/product/off-the-grid" className="w-full h-11 rounded-full bg-primary text-on-primary font-bold text-xs uppercase tracking-widest hover:bg-primary-container transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-primary/30 font-label-sm">
-                    <span className="material-symbols-outlined text-[17px]">local_mall</span>
-                    <span>Reserve Vault Batch · £135</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </section>
 
-          {/* SECTION 2: OLFACTIVE MOOD FILTER BAR */}
-          <section className="w-full px-margin-desktop py-space-md sticky top-20 z-30">
-            <div className="max-w-5xl mx-auto bg-surface-container-lowest/85 backdrop-blur-xl p-space-xs rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex items-center justify-between gap-space-xs overflow-x-auto">
-              <button 
-                type="button" 
-                onClick={() => filterProducts('all')}
-                className={`px-space-lg py-2.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider transition-all whitespace-nowrap ${activeFilter === 'all' ? 'bg-inverse-surface text-inverse-on-surface active' : 'hover:bg-surface-container text-on-surface-variant hover:text-on-surface'}`}
-              >
-                All Profiles (6)
-              </button>
-              <button 
-                type="button"
-                onClick={() => filterProducts('solar')}
-                className={`px-space-md py-2.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider transition-all whitespace-nowrap ${activeFilter === 'solar' ? 'bg-inverse-surface text-inverse-on-surface active' : 'hover:bg-surface-container text-on-surface-variant hover:text-on-surface'}`}
-              >
-                Solar Amber
-              </button>
-              <button 
-                type="button"
-                onClick={() => filterProducts('plum')}
-                className={`px-space-md py-2.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider transition-all whitespace-nowrap ${activeFilter === 'plum' ? 'bg-inverse-surface text-inverse-on-surface active' : 'hover:bg-surface-container text-on-surface-variant hover:text-on-surface'}`}
-              >
-                Dark Floral Plum
-              </button>
-              <button 
-                type="button"
-                onClick={() => filterProducts('violet')}
-                className={`px-space-md py-2.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider transition-all whitespace-nowrap ${activeFilter === 'violet' ? 'bg-inverse-surface text-inverse-on-surface active' : 'hover:bg-surface-container text-on-surface-variant hover:text-on-surface'}`}
-              >
-                Powdery Iris
-              </button>
-              <button 
-                type="button"
-                onClick={() => filterProducts('aquatic')}
-                className={`px-space-md py-2.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider transition-all whitespace-nowrap ${activeFilter === 'aquatic' ? 'bg-inverse-surface text-inverse-on-surface active' : 'hover:bg-surface-container text-on-surface-variant hover:text-on-surface'}`}
-              >
-                Aquatic Drift
-              </button>
-              <button 
-                type="button"
-                onClick={() => filterProducts('gourmand')}
-                className={`px-space-md py-2.5 rounded-full font-label-sm text-label-sm uppercase tracking-wider transition-all whitespace-nowrap ${activeFilter === 'gourmand' ? 'bg-inverse-surface text-inverse-on-surface active' : 'hover:bg-surface-container text-on-surface-variant hover:text-on-surface'}`}
-              >
-                Smoky Gourmand
-              </button>
-              <div className="hidden md:flex items-center pr-space-md pl-space-xs text-outline">
-                <span className="material-symbols-outlined text-[18px]">tune</span>
+      {/* SECTION 2: Editorial Hero Section */}
+      <section className="relative w-full pt-32 pb-32 px-4 md:px-8 flex flex-col items-center overflow-hidden">
+        {/* Cinematic Aurora Gradient Mesh */}
+        <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-gradient-to-tr from-[#FF8F5E] via-[#FF3366] to-[#A233FF] blur-[100px] opacity-60 rounded-[100%] pointer-events-none z-0"></div>
+        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-[#FFB84D] to-transparent blur-[90px] opacity-50 rounded-full pointer-events-none z-0"></div>
+        
+        <div className="w-full relative flex flex-col items-center mt-10 max-w-[1400px] mx-auto z-10">
+          
+          {/* Floating Left */}
+          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }} className="absolute left-0 top-16 flex flex-col gap-8 w-48 hidden lg:flex z-20">
+            <div className="w-[170px] h-[220px] rounded-t-[100px] rounded-b-2xl overflow-hidden relative shadow-[0_0_40px_rgba(255,102,153,0.3)] bg-white/40 backdrop-blur-md border border-white/60 p-2">
+              <div className="w-full h-full relative rounded-t-[90px] rounded-b-xl overflow-hidden">
+                 <Image src="/images/perfume_stay_a_little_longer.jpg" alt="Floral Fragrance" fill className="object-cover mix-blend-multiply" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#FF3366]/20 to-transparent"></div>
               </div>
             </div>
-          </section>
-
-          {/* SECTION 3: THE CHROMATIC VAULT */}
-          <section className="w-full px-margin-desktop py-space-xl" id="chromatic-vault">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-space-xl">
-              <div>
-                <span className="text-xs text-primary font-black uppercase tracking-[0.25em] block mb-1 font-label-sm">The Packaging & Scent Spectrum</span>
-                <h2 className="text-3xl lg:text-4xl text-on-surface font-medium tracking-tight font-headline-lg">The Chromatic Vault</h2>
-              </div>
-              <p className="text-sm text-on-surface-variant max-w-md mt-2 md:mt-0 font-medium font-body-sm">
-                Directly drawn from our iconic custom packaging blocks. Six pure perfume extracts engineered to evoke singular states of human presence.
-              </p>
+            <div className="flex flex-col gap-4 pl-3">
+              {[
+                { name: "Fresh Fragrances", active: true },
+                { name: "Floral Fragrances", active: false },
+                { name: "Oceanic Fragrances", active: false }
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 text-[12px] font-bold text-[#1A1A1A]">
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center ${item.active ? 'bg-gradient-to-br from-[#FFB84D] to-[#FF3366] shadow-lg shadow-[#FF3366]/30' : 'bg-white/60 border border-[#FF9EBA]'}`}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={item.active ? "white" : "#FF9EBA"} strokeWidth="2.5"><path d="M12 2C8 2 4 6 4 10C4 14.4 12 22 12 22C12 22 20 14.4 20 10C20 6 16 2 12 2Z"/></svg>
+                  </div>
+                  {item.name}
+                </div>
+              ))}
             </div>
+          </motion.div>
+          
+          {/* Floating Right */}
+          <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.2 }} className="absolute right-0 top-24 flex flex-col gap-10 w-48 hidden lg:flex items-end z-20">
+            <div className="w-[170px] h-[220px] rounded-t-[100px] rounded-b-2xl overflow-hidden relative shadow-[0_0_40px_rgba(153,102,255,0.3)] bg-white/40 backdrop-blur-md border border-white/60 p-2">
+               <div className="w-full h-full relative rounded-t-[90px] rounded-b-xl overflow-hidden">
+                  <Image src="/images/perfume_off_the_grid.jpg" alt="Classic Fragrance" fill className="object-cover mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#9933FF]/20 to-transparent"></div>
+               </div>
+            </div>
+            <div className="flex items-center gap-3 bg-gradient-to-r from-white/90 to-white/70 backdrop-blur-xl p-2 pr-5 rounded-full shadow-[0_10px_30px_rgba(153,102,255,0.2)] mr-4 border border-white/50">
+              <div className="flex -space-x-3">
+                 <div className="w-10 h-10 rounded-full border-2 border-white overflow-hidden relative shadow-md"><Image src="/images/perfume_stay_a_little_longer.jpg" fill alt="avatar" className="object-cover" /></div>
+                 <div className="w-10 h-10 rounded-full border-2 border-white overflow-hidden relative shadow-md"><Image src="/images/perfume_better_in_person.jpg" fill alt="avatar" className="object-cover" /></div>
+                 <div className="w-10 h-10 rounded-full border-2 border-white overflow-hidden relative shadow-md"><Image src="/images/perfume_main_character.jpg" fill alt="avatar" className="object-cover" /></div>
+              </div>
+              <div className="text-[10px] font-bold leading-tight text-transparent bg-clip-text bg-gradient-to-r from-[#FF3366] to-[#9933FF]">
+                500k+<br/>Reviews
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Typography */}
+          <div className="text-center flex flex-col items-center z-10 w-full max-w-4xl mx-auto mt-4">
+            <h1 className="font-serif text-[80px] md:text-[130px] leading-[0.95] tracking-tight relative z-10 drop-shadow-[0_4px_20px_rgba(255,51,102,0.15)] text-[#1A1A1A]">
+              The <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#FFB84D] via-[#FF5E8E] to-[#9933FF]">Fragrance</span>
+            </h1>
+            <h1 className="font-serif text-[80px] md:text-[130px] leading-[0.95] text-[#1A1A1A] tracking-tight relative z-10 mt-2">
+              of Life
+            </h1>
+            <p className="text-[#333] text-[13px] font-bold mt-10 tracking-widest uppercase bg-white/40 px-6 py-2 rounded-full backdrop-blur-sm border border-white/60 shadow-sm">
+              Our Popular Colognes on 2023 at a discount
+            </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter-desktop">
-              {/* CARD 1: OFF THE GRID */}
-              <div className={`group chroma-orange arch-leaf-tl p-6 transition-all duration-500 glow-orange flex-col justify-between shadow-lg ${activeFilter !== 'all' && activeFilter !== 'solar' ? 'hidden' : 'flex'}`}>
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-black uppercase tracking-[0.2em] bg-white/20 px-3 py-1 rounded-full text-white backdrop-blur-sm font-label-sm">01 • Solar Amber</span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-white/90 font-label-sm">15ml Extrait</span>
-                  </div>
-                  <div className="mb-4">
-                    <span className="text-[10px] font-bold tracking-[0.22em] uppercase block text-white/80 font-label-sm">The Nomad Extract</span>
-                    <h3 className="text-2xl font-semibold tracking-wide text-white mt-0.5 font-headline-md">Off The Grid</h3>
-                  </div>
-                  <div className="w-full h-56 rounded-xl bg-surface-container-lowest p-4 flex flex-col items-center justify-center relative overflow-hidden mb-5 shadow-inner">
-                    <Image src="/images/perfume_off_the_grid.jpg" alt="Off The Grid" width={160} height={160} className="h-40 w-auto object-contain group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1.5">
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Blood Orange</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Ambergris</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Sandalwood</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between pt-1">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/80 block font-label-sm">Standard Flacon</span>
-                    <span className="text-2xl text-white font-medium font-headline-md">£125</span>
-                  </div>
-                  <Link href="/product/off-the-grid" className="h-10 px-5 flex items-center rounded-full bg-white text-[#F05A28] font-black text-xs uppercase tracking-wider hover:bg-surface-container-lowest hover:scale-105 transition-all shadow-md font-label-sm">Acquire Scent</Link>
-                </div>
+            {/* Promotion Badge & Explore Button Group */}
+            <div className="relative mt-16 z-30 flex flex-col items-center pb-12">
+              <div className="bg-gradient-to-r from-[#FFD1FF] via-[#E0C3FC] to-[#8EC5FC] rounded-[100%] w-[320px] h-[120px] shadow-[0_10px_40px_rgba(153,102,255,0.3)] border-2 border-white flex flex-col items-center justify-start pt-6 relative z-20 overflow-hidden group">
+                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+                 <span className="text-white drop-shadow-md font-serif italic text-[42px] font-bold leading-none mb-1 relative z-10">25% Off</span>
+                 <span className="text-[#1A1A1A] text-[11px] font-extrabold uppercase tracking-widest mt-1 relative z-10 bg-white/50 px-4 py-1 rounded-full backdrop-blur-sm">on all New Arrivals</span>
               </div>
-
-              {/* CARD 2: MAIN CHARACTER */}
-              <div className={`group chroma-burgundy arch-leaf-tr p-6 transition-all duration-500 glow-burgundy flex-col justify-between shadow-lg ${activeFilter !== 'all' && activeFilter !== 'plum' ? 'hidden' : 'flex'}`}>
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-black uppercase tracking-[0.2em] bg-white/20 px-3 py-1 rounded-full text-white backdrop-blur-sm font-label-sm">02 • Nocturnal Floral</span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-white/90 font-label-sm">15ml Extrait</span>
-                  </div>
-                  <div className="mb-4">
-                    <span className="text-[10px] font-bold tracking-[0.22em] uppercase block text-white/80 font-label-sm">Magnetic Decadence</span>
-                    <h3 className="text-2xl font-semibold tracking-wide text-white mt-0.5 font-headline-md">Main Character</h3>
-                  </div>
-                  <div className="w-full h-56 rounded-xl bg-surface-container-lowest p-4 flex flex-col items-center justify-center relative overflow-hidden mb-5 shadow-inner">
-                    <Image src="/images/perfume_main_character.jpg" alt="Main Character" width={160} height={160} className="h-40 w-auto object-contain group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1.5">
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Black Plum</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Damask Rose</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Incense Smoke</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between pt-1">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/80 block font-label-sm">Standard Flacon</span>
-                    <span className="text-2xl text-white font-medium font-headline-md">£135</span>
-                  </div>
-                  <Link href="/product/main-character" className="h-10 px-5 flex items-center rounded-full bg-white text-[#581825] font-black text-xs uppercase tracking-wider hover:bg-surface-container-lowest hover:scale-105 transition-all shadow-md font-label-sm">Acquire Scent</Link>
-                </div>
-              </div>
-
-              {/* CARD 3: STAY A LITTLE LONGER */}
-              <div className={`group chroma-violet arch-leaf-br p-6 transition-all duration-500 glow-violet flex-col justify-between shadow-lg ${activeFilter !== 'all' && activeFilter !== 'violet' ? 'hidden' : 'flex'}`}>
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-black uppercase tracking-[0.2em] bg-white/20 px-3 py-1 rounded-full text-white backdrop-blur-sm font-label-sm">03 • Powdery Iris</span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-white/90 font-label-sm">15ml Extrait</span>
-                  </div>
-                  <div className="mb-4">
-                    <span className="text-[10px] font-bold tracking-[0.22em] uppercase block text-white/80 font-label-sm">Intimate Sillage</span>
-                    <h3 className="text-2xl font-semibold tracking-wide text-white mt-0.5 font-headline-md">Stay A Little Longer</h3>
-                  </div>
-                  <div className="w-full h-56 rounded-xl bg-surface-container-lowest p-4 flex flex-col items-center justify-center relative overflow-hidden mb-5 shadow-inner">
-                    <Image src="/images/perfume_stay_a_little_longer.jpg" alt="Stay A Little Longer" width={160} height={160} className="h-40 w-auto object-contain group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1.5">
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Florentine Orris</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Cashmeran</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">White Musk</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between pt-1">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/80 block font-label-sm">Standard Flacon</span>
-                    <span className="text-2xl text-white font-medium font-headline-md">£130</span>
-                  </div>
-                  <Link href="/product/stay-a-little-longer" className="h-10 px-5 flex items-center rounded-full bg-white text-[#7C4D8E] font-black text-xs uppercase tracking-wider hover:bg-surface-container-lowest hover:scale-105 transition-all shadow-md font-label-sm">Acquire Scent</Link>
-                </div>
-              </div>
-
-              {/* CARD 4: BETTER THAN YESTERDAY */}
-              <div className={`group chroma-azure arch-leaf-tr p-6 transition-all duration-500 glow-azure flex-col justify-between shadow-lg ${activeFilter !== 'all' && activeFilter !== 'aquatic' ? 'hidden' : 'flex'}`}>
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-black uppercase tracking-[0.2em] bg-black/10 px-3 py-1 rounded-full text-[#0E2833] backdrop-blur-sm font-label-sm">04 • Coastal Azure</span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#0E2833]/80 font-label-sm">15ml Extrait</span>
-                  </div>
-                  <div className="mb-4">
-                    <span className="text-[10px] font-bold tracking-[0.22em] uppercase block text-[#0E2833]/80 font-label-sm">Mineral Renaissance</span>
-                    <h3 className="text-2xl font-semibold tracking-wide text-[#0E2833] mt-0.5 font-headline-md">Better Than Yesterday</h3>
-                  </div>
-                  <div className="w-full h-56 rounded-xl bg-surface-container-lowest p-4 flex flex-col items-center justify-center relative overflow-hidden mb-5 shadow-inner">
-                    <Image src="/images/perfume_better_than_yesterday.jpg" alt="Better Than Yesterday" width={160} height={160} className="h-40 w-auto object-contain group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1.5">
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Sea Air</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Cold Driftwood</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Cardamom</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between pt-1">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#0E2833]/80 block font-label-sm">Standard Flacon</span>
-                    <span className="text-2xl text-[#0E2833] font-medium font-headline-md">£120</span>
-                  </div>
-                  <Link href="/product/better-than-yesterday" className="h-10 px-5 flex items-center rounded-full bg-[#0E2833] text-white font-black text-xs uppercase tracking-wider hover:opacity-90 hover:scale-105 transition-all shadow-md font-label-sm">Acquire Scent</Link>
-                </div>
-              </div>
-
-              {/* CARD 5: BETTER IN PERSON */}
-              <div className={`group chroma-amber arch-leaf-tl p-6 transition-all duration-500 glow-amber flex-col justify-between shadow-lg ${activeFilter !== 'all' && activeFilter !== 'solar' ? 'hidden' : 'flex'}`}>
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-black uppercase tracking-[0.2em] bg-black/10 px-3 py-1 rounded-full text-[#1F1404] backdrop-blur-sm font-label-sm">05 • Solar Honey Spice</span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#1F1404]/80 font-label-sm">15ml Extrait</span>
-                  </div>
-                  <div className="mb-4">
-                    <span className="text-[10px] font-bold tracking-[0.22em] uppercase block text-[#1F1404]/80 font-label-sm">Golden Radiance</span>
-                    <h3 className="text-2xl font-semibold tracking-wide text-[#1F1404] mt-0.5 font-headline-md">Better In Person</h3>
-                  </div>
-                  <div className="w-full h-56 rounded-xl bg-surface-container-lowest p-4 flex flex-col items-center justify-center relative overflow-hidden mb-5 shadow-inner">
-                    <Image src="/images/perfume_better_in_person.jpg" alt="Better In Person" width={160} height={160} className="h-40 w-auto object-contain group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1.5">
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Wild Honey</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Saffron Threads</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Benzoin Tear</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between pt-1">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#1F1404]/80 block font-label-sm">Standard Flacon</span>
-                    <span className="text-2xl text-[#1F1404] font-medium font-headline-md">£128</span>
-                  </div>
-                  <Link href="/product/better-in-person" className="h-10 px-5 flex items-center rounded-full bg-[#1F1404] text-[#D4973B] font-black text-xs uppercase tracking-wider hover:opacity-90 hover:scale-105 transition-all shadow-md font-label-sm">Acquire Scent</Link>
-                </div>
-              </div>
-
-              {/* CARD 6: BAD INFLUENCE */}
-              <div className={`group chroma-taupe arch-leaf-br p-6 transition-all duration-500 glow-taupe flex-col justify-between shadow-lg ${activeFilter !== 'all' && activeFilter !== 'gourmand' ? 'hidden' : 'flex'}`}>
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-black uppercase tracking-[0.2em] bg-black/10 px-3 py-1 rounded-full text-[#2B1610] backdrop-blur-sm font-label-sm">06 • Smoky Gourmand</span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#2B1610]/80 font-label-sm">15ml Extrait</span>
-                  </div>
-                  <div className="mb-4">
-                    <span className="text-[10px] font-bold tracking-[0.22em] uppercase block text-[#2B1610]/80 font-label-sm">Blonde Tobacco & Vanilla</span>
-                    <h3 className="text-2xl font-semibold tracking-wide text-[#2B1610] mt-0.5 font-headline-md">Bad Influence</h3>
-                  </div>
-                  <div className="w-full h-56 rounded-xl bg-surface-container-lowest p-4 flex flex-col items-center justify-center relative overflow-hidden mb-5 shadow-inner">
-                    <Image src="/images/perfume_bad_influence.jpg" alt="Bad Influence" width={160} height={160} className="h-40 w-auto object-contain group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute bottom-2 left-2 right-2 flex justify-center gap-1.5">
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Blonde Tobacco</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Bourbon Vanilla</span>
-                      <span className="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-bold text-[9px] uppercase tracking-wider font-label-sm">Toasted Tonka</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between pt-1">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#2B1610]/80 block font-label-sm">Standard Flacon</span>
-                    <span className="text-2xl text-[#2B1610] font-medium font-headline-md">£135</span>
-                  </div>
-                  <Link href="/product/bad-influence" className="h-10 px-5 flex items-center rounded-full bg-[#2B1610] text-[#B88B7D] font-black text-xs uppercase tracking-wider hover:opacity-90 hover:scale-105 transition-all shadow-md font-label-sm">Acquire Scent</Link>
-                </div>
-              </div>
+              <button className="w-[90px] h-[90px] bg-gradient-to-br from-[#1A1A1A] to-[#444] rounded-full text-white flex flex-col items-center justify-center absolute -bottom-2 z-30 hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] hover:scale-105 transition-all shadow-2xl group border-[4px] border-white">
+                <span className="font-sans font-bold text-[10px] uppercase tracking-widest leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#FFB84D] group-hover:to-[#FF3366]">Explore<br/>Now</span>
+              </button>
             </div>
-          </section>
+          </div>
+        </div>
+      </section>
 
-          {/* SECTION 4: THE ATELIER TASTING SET */}
-          <section className="w-full px-margin-desktop py-space-xl">
-            <div className="w-full bg-surface-container-low rounded-xl p-space-lg lg:p-space-xl overflow-hidden relative shadow-lg">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-center">
-                <div className="lg:col-span-6 relative">
-                  <div className="relative w-full h-[400px] rounded-lg overflow-hidden bg-surface-container-highest">
-                    <Image src="/images/shop_collection.jpg" alt="Complete bespoke discovery set showcase" fill className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-space-md left-space-md right-space-md flex items-center justify-between text-white">
-                      <span className="font-label-sm text-label-sm uppercase tracking-widest">6 × 2ml Pure Extracts Vial Flight</span>
-                      <span className="font-label-sm text-label-sm uppercase tracking-widest bg-white/20 px-space-sm py-0.5 rounded-full backdrop-blur-sm">Grasse Hand-Filled</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="lg:col-span-6 flex flex-col items-start pl-0 lg:pl-space-lg">
-                  <span className="px-3.5 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[11px] font-black uppercase tracking-widest mb-3 font-label-sm">100% Redeemable Investment</span>
-                  <h2 className="text-3xl lg:text-4xl text-on-surface font-medium tracking-tight mb-3 font-headline-lg">Can’t Decide on One Signature?</h2>
-                  <p className="text-sm text-on-surface-variant mb-6 leading-relaxed font-body-sm">
-                    Experience all six extrait formulations in your own rhythm. The complete Discovery Vault delivers 6 × 2ml laboratory vials accompanied by our olfactory blotter journal. The £38 cost is 100% credited toward your first full 50ml flacon purchase.
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full mb-8">
-                    <div className="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/30">
-                      <span className="text-xs text-primary font-bold tracking-wider block mb-1 font-label-sm">01. WEAR ALL 6</span>
-                      <p className="text-xs text-on-surface-variant font-medium font-body-sm">Test skin chemistry evaporation over 48 hours.</p>
-                    </div>
-                    <div className="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/30">
-                      <span className="text-xs text-primary font-bold tracking-wider block mb-1 font-label-sm">02. FIND RESONANCE</span>
-                      <p className="text-xs text-on-surface-variant font-medium font-body-sm">Identify the hue that mirrors your present mood.</p>
-                    </div>
-                    <div className="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/30">
-                      <span className="text-xs text-primary font-bold tracking-wider block mb-1 font-label-sm">03. REDEEM £38</span>
-                      <p className="text-xs text-on-surface-variant font-medium font-body-sm">Voucher automatically applied upon checkout.</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
-                    <Link href="/product/cologne-discovery-collection" className="w-full sm:w-auto h-12 px-8 rounded-full bg-primary text-on-primary font-black text-xs uppercase tracking-widest hover:bg-primary-container transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 font-label-sm">
-                      <span className="material-symbols-outlined text-[19px]">inventory_2</span>
-                      <span>Order Discovery Set • £38</span>
-                    </Link>
-                    <span className="text-xs font-semibold text-on-surface-variant flex items-center gap-1.5 font-label-sm">
-                      <span className="material-symbols-outlined text-primary text-[18px]">verified</span>
-                      Complimentary carbon-neutral courier
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+      {/* SECTION 3: "Best Selling Product" Carousel */}
+      <section className="w-full bg-white/60 backdrop-blur-lg pt-32 pb-24 border-t border-white/50 relative z-20 shadow-[0_-20px_50px_rgba(255,255,255,0.5)]">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-12 flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+           <h2 className="font-serif text-[42px] text-[#1A1A1A] flex items-start gap-1 relative tracking-tight">
+             Best Selling Product
+             <svg width="16" height="16" viewBox="0 0 24 24" fill="url(#star-grad)" className="absolute -top-1 -right-6"><defs><linearGradient id="star-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#FFB84D" /><stop offset="100%" stopColor="#FF3366" /></linearGradient></defs><path d="M12 2L15 10H22L16 15L18 22L12 18L6 22L8 15L2 10H9L12 2Z"/></svg>
+           </h2>
+           <div className="flex gap-4">
+             <button className="w-12 h-12 rounded-full border-2 border-[#EAEAEA] flex items-center justify-center text-[#1A1A1A] hover:border-[#FF3366] hover:text-[#FF3366] transition-colors bg-white">
+               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M5 12L12 19M5 12L12 5"/></svg>
+             </button>
+             <button className="w-12 h-12 rounded-full bg-gradient-to-r from-[#FF5E8E] to-[#9933FF] flex items-center justify-center text-white hover:shadow-[0_0_20px_rgba(153,51,255,0.4)] hover:scale-105 transition-all">
+               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12H19M19 12L12 19M19 12L12 5"/></svg>
+             </button>
+           </div>
+        </div>
+        
+        <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-8 lg:px-12">
+           {bestSellers.map((product, idx) => (
+              <motion.div key={idx} whileHover={{ y: -10 }} className={`bg-white border border-[#EAEAEA] rounded-[2rem] flex flex-col h-[480px] relative group transition-all duration-500 overflow-hidden ${product.glow}`}>
+                 <button className="absolute top-6 right-6 z-20 p-2 bg-white/50 backdrop-blur-md rounded-full shadow-sm hover:scale-110 transition-transform">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill={idx === 0 ? "#FF3366" : "none"} stroke={idx === 0 ? "#FF3366" : "#CCC"} strokeWidth="2.5">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                   </svg>
+                 </button>
+                 <Link href={`/product/${product.slug}`} className="flex-1 w-full relative pt-12 px-8 flex items-center justify-center bg-gradient-to-b from-[#FDFDFD] to-[#F9F9F9]">
+                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                   <Image src={product.image} alt={product.name} fill className="object-contain p-12 mix-blend-multiply group-hover:scale-110 group-hover:-translate-y-4 transition-transform duration-700 ease-out drop-shadow-xl" />
+                 </Link>
+                 <div className="w-full flex flex-col bg-white relative z-10">
+                   <div className="p-6 text-center">
+                     <h3 className="font-bold text-[#1A1A1A] text-[16px] tracking-wide">{product.name}</h3>
+                   </div>
+                   <div className="w-full flex border-t border-[#EAEAEA]">
+                      <div className="w-1/2 py-4 text-center text-[14px] font-extrabold text-[#1A1A1A] border-r border-[#EAEAEA] bg-[#FAFAFA]">${product.price}.00</div>
+                      <button className="w-1/2 py-4 text-center text-[12px] font-bold tracking-widest uppercase text-[#FF5E8E] bg-white group-hover:bg-gradient-to-r group-hover:from-[#FF5E8E] group-hover:to-[#9933FF] group-hover:text-white transition-all duration-500 relative overflow-hidden">
+                        <span className="relative z-10">Add to cart</span>
+                      </button>
+                   </div>
+                 </div>
+              </motion.div>
+           ))}
+        </div>
+      </section>
 
-          {/* SECTION 5: THE 14-HOUR EVAPORATION CURVE */}
-          <section className="w-full px-margin-desktop py-space-xl" id="evaporation-curve">
-            <div className="text-center max-w-2xl mx-auto mb-space-xl">
-              <span className="text-xs text-primary font-black uppercase tracking-[0.25em] block mb-2 font-label-sm">Proprietary Formulation</span>
-              <h2 className="text-3xl lg:text-4xl text-on-surface font-medium tracking-tight mb-2 font-headline-lg">The 14-Hour Evaporation Curve</h2>
-              <p className="text-sm text-on-surface-variant max-w-xl mx-auto font-medium font-body-sm">
-                Traditional perfumes disintegrate after 3 hours. Our 35% pure oil formulation unfurls in three staggered dimensional stages over 14 hours.
-              </p>
-            </div>
-            
-            <div className="bg-surface-container-lowest p-space-lg lg:p-space-xl rounded-xl shadow-md max-w-5xl mx-auto">
-              <div className="w-full mb-space-xl">
-                <svg className="w-full h-auto text-primary" fill="none" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg">
-                  <line stroke="#E4E2DE" strokeDasharray="4 4" strokeWidth="1.5" x1="50" x2="850" y1="30" y2="30"></line>
-                  <line stroke="#E4E2DE" strokeDasharray="4 4" strokeWidth="1.5" x1="50" x2="850" y1="100" y2="100"></line>
-                  <line stroke="#E4E2DE" strokeDasharray="4 4" strokeWidth="1.5" x1="50" x2="850" y1="170" y2="170"></line>
-                  <path d="M 50 170 Q 150 20, 250 35 T 500 70 T 700 110 T 850 160 L 850 190 L 50 190 Z" fill="currentColor" fillOpacity="0.08"></path>
-                  <path d="M 50 170 Q 150 20, 250 35 T 500 70 T 700 110 T 850 160" stroke="currentColor" strokeLinecap="round" strokeWidth="3.5"></path>
-                  <circle cx="150" cy="30" fill="#F05A28" r="7" stroke="#FFFFFF" strokeWidth="2"></circle>
-                  <circle cx="450" cy="65" fill="#7C4D8E" r="7" stroke="#FFFFFF" strokeWidth="2"></circle>
-                  <circle cx="750" cy="130" fill="#581825" r="7" stroke="#FFFFFF" strokeWidth="2"></circle>
-                  <text fill="#1b1c1a" fontFamily="var(--font-jakarta)" fontSize="11" fontWeight="700" letterSpacing="0.1em" textAnchor="middle" x="150" y="15">TOP ACCORDS</text>
-                  <text fill="#1b1c1a" fontFamily="var(--font-jakarta)" fontSize="11" fontWeight="700" letterSpacing="0.1em" textAnchor="middle" x="450" y="50">HEART MATRIX</text>
-                  <text fill="#1b1c1a" fontFamily="var(--font-jakarta)" fontSize="11" fontWeight="700" letterSpacing="0.1em" textAnchor="middle" x="750" y="115">BASE MOLECULES</text>
-                </svg>
+      {/* SECTION 4: "The Chromatic Vault" Grid */}
+      <section className="w-full bg-white py-32 border-t border-[#EAEAEA]">
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-12 flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+           <h2 className="font-serif text-[50px] text-transparent bg-clip-text bg-gradient-to-r from-[#1A1A1A] to-[#666] tracking-tight">
+             The Chromatic Vault
+           </h2>
+           <p className="text-[#555] text-[13px] max-w-sm text-right leading-relaxed font-bold bg-[#F9F9F9] p-4 rounded-xl border border-[#EAEAEA]">
+             Six unapologetic pure perfume extracts. Formulated at an intense 35% essence concentration.
+           </p>
+        </div>
+        
+        <div className="max-w-[1400px] mx-auto px-8 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {chromaticVault.map((item, i) => (
+            <div key={i} className={`${item.color} ${item.textColor} rounded-[2.5rem] p-8 flex flex-col h-[420px] shadow-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:-translate-y-2 transition-all duration-500 relative overflow-hidden group`}>
+              {/* Glass Glare */}
+              <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/30 to-transparent transform -skew-y-12 -translate-y-10 group-hover:translate-y-0 transition-transform duration-700 pointer-events-none"></div>
+              
+              <div className="text-[10px] uppercase font-bold tracking-widest opacity-90 mb-2 drop-shadow-md">Collection</div>
+              <div className="font-serif text-[32px] mb-8 relative z-10 drop-shadow-lg leading-tight font-medium">{item.name}</div>
+              
+              <div className="bg-white/20 backdrop-blur-xl rounded-full w-full flex-1 flex justify-center items-center mb-6 relative overflow-hidden group-hover:bg-white/30 border border-white/40 transition-colors shadow-inner">
+                 <div className="relative w-[90px] h-[140px]">
+                    <Image src={item.image} alt={item.name} fill className="object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] group-hover:scale-110 transition-transform duration-700" />
+                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter-desktop">
-                <div className="bg-surface-container-low p-space-md rounded-lg relative overflow-hidden">
-                  <div className="w-1.5 h-full bg-[#F05A28] absolute top-0 left-0"></div>
-                  <div className="pl-space-xs">
-                    <span className="font-label-sm text-label-sm text-[#F05A28] uppercase font-bold tracking-widest block mb-1">0 to 2 Hours • High Volatility</span>
-                    <h4 className="font-headline-sm text-headline-sm text-on-surface mb-space-xs">The Atmospheric Opening</h4>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
-                      Cold-pressed Blood Orange, Mineral Sea Breeze, Wild Saffron, and Sicilian Bergamot. Radiates up to 6 feet in sillage.
-                    </p>
-                    <span className="inline-block px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">Projection: Immediate</span>
-                  </div>
-                </div>
-                <div className="bg-surface-container-low p-space-md rounded-lg relative overflow-hidden">
-                  <div className="w-1.5 h-full bg-[#7C4D8E] absolute top-0 left-0"></div>
-                  <div className="pl-space-xs">
-                    <span className="font-label-sm text-label-sm text-[#7C4D8E] uppercase font-bold tracking-widest block mb-1">2 to 7 Hours • Steady Heart</span>
-                    <h4 className="font-headline-sm text-headline-sm text-on-surface mb-space-xs">The Emotional Signature</h4>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
-                      Florentine Orris root, Midnight Damask Rose, and Crushed Black Plum fusing seamlessly with organic skin temperature.
-                    </p>
-                    <span className="inline-block px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">Projection: Intimate Aura</span>
-                  </div>
-                </div>
-                <div className="bg-surface-container-low p-space-md rounded-lg relative overflow-hidden">
-                  <div className="w-1.5 h-full bg-[#581825] absolute top-0 left-0"></div>
-                  <div className="pl-space-xs">
-                    <span className="font-label-sm text-label-sm text-[#581825] uppercase font-bold tracking-widest block mb-1">7 to 14+ Hours • Resinous Base</span>
-                    <h4 className="font-headline-sm text-headline-sm text-on-surface mb-space-xs">The Perpetuity Anchors</h4>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
-                      Sun-drenched Ambergris, Cured Blonde Tobacco, Vintage Tonka, and Himalayan Cedar lingering on garments for days.
-                    </p>
-                    <span className="inline-block px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">Projection: Personal Skin-Scent</span>
-                  </div>
-                </div>
+              <div className="flex justify-between items-center relative z-10 mt-2">
+                 <span className="font-bold text-2xl drop-shadow-md">${item.price}</span>
+                 <button className={`bg-transparent border-2 border-white/60 ${item.textColor} px-6 py-3.5 rounded-full text-[10px] font-extrabold tracking-widest uppercase hover:bg-white hover:text-[#1A1A1A] hover:border-white transition-all shadow-lg backdrop-blur-sm`}>Add to Cart</button>
               </div>
             </div>
-          </section>
-
-          {/* SECTION 6: PRESS ACCOLADES */}
-          <section className="w-full px-margin-desktop py-space-xl bg-surface-container-low/50">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="flex items-center justify-center gap-1 text-primary mb-space-md">
-                <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-              </div>
-              <blockquote className="font-headline-lg text-headline-lg italic text-on-surface font-light leading-snug mb-space-lg">
-                “ONE OF NONE has achieved what few luxury houses dare: uncompromised aesthetic vibrancy paired with masterclass fragrance sillage. These aren’t mere scents—they are chromatic identities for the skin.”
-              </blockquote>
-              <cite className="font-label-lg text-label-lg tracking-[0.2em] uppercase text-on-surface-variant not-italic block mb-space-xl">
-                — Olfactory Gazette International · Autumn Issue
-              </cite>
-              <div className="flex flex-wrap items-center justify-center gap-space-xl opacity-60">
-                <span className="font-headline-sm text-headline-sm uppercase tracking-widest text-on-surface">Vogue Living</span>
-                <span className="font-body-sm text-body-sm text-outline">•</span>
-                <span className="font-headline-sm text-headline-sm uppercase tracking-widest text-on-surface">Wallpaper*</span>
-                <span className="font-body-sm text-body-sm text-outline">•</span>
-                <span className="font-headline-sm text-headline-sm uppercase tracking-widest text-on-surface">Dazed & Confused</span>
-                <span className="font-body-sm text-body-sm text-outline">•</span>
-                <span className="font-headline-sm text-headline-sm uppercase tracking-widest text-on-surface">Monocle Fragrance</span>
-              </div>
-            </div>
-          </section>
+          ))}
         </div>
-      </main>
+      </section>
 
-      {/* FOOTER */}
-      {/* FOOTER */}
-      <Footer />
-    </>
+      {/* SECTION 5: Discovery Set Banner */}
+      <section className="w-full bg-white py-32 px-8 lg:px-12">
+        <div className="bg-gradient-to-r from-[#FFE8D6] via-[#FFD6E8] to-[#D6E0FF] rounded-[3rem] overflow-hidden flex flex-col lg:flex-row max-w-[1300px] mx-auto shadow-2xl border border-white p-2">
+          <div className="w-full lg:w-[45%] relative min-h-[450px] lg:min-h-auto rounded-[2.5rem] overflow-hidden shadow-inner">
+             <Image src="/images/shop_collection.jpg" fill alt="Discovery Set" className="object-cover" />
+             <div className="absolute inset-0 bg-gradient-to-t from-[#1A0A26]/80 to-transparent"></div>
+          </div>
+          <div className="w-full lg:w-[55%] p-10 md:p-16 flex flex-col justify-center bg-white/60 backdrop-blur-xl rounded-[2.5rem] ml-0 lg:-ml-6 relative z-10 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] border border-white/80">
+             <h2 className="font-serif text-5xl text-[#1A0A26] mb-6 leading-tight">Can't Decide on <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E1A] to-[#D47A8F]">One Signature?</span></h2>
+             <p className="text-[#444] text-sm mb-10 leading-relaxed font-medium">
+               Experience our entire olfactory library with the 3x2ml Discovery Miniature vial set. Your investment is 100% redeemable against any future 100ml flacon purchase.
+             </p>
+             <div className="flex flex-col gap-5 mb-10">
+                <label className="border-2 border-[#FF5E1A] p-5 rounded-2xl flex items-center gap-5 cursor-pointer bg-white shadow-[0_5px_20px_rgba(255,94,26,0.15)] transform hover:-translate-y-1 transition-all">
+                  <div className="w-6 h-6 rounded-full border-4 border-[#FF5E1A] bg-white shadow-inner"></div>
+                  <div>
+                    <div className="font-extrabold text-[15px] text-[#1A1A1A]">The Complete Archive</div>
+                    <div className="text-[12px] text-[#FF5E1A] font-bold mt-0.5">All 6 distinct extract profiles</div>
+                  </div>
+                </label>
+                <label className="border-2 border-white p-5 rounded-2xl flex items-center gap-5 cursor-pointer hover:border-[#D47A8F] bg-white/80 backdrop-blur-md shadow-sm transform hover:-translate-y-1 transition-all">
+                  <div className="w-6 h-6 rounded-full border-2 border-[#CCC] bg-white"></div>
+                  <div>
+                    <div className="font-bold text-[15px] text-[#555]">Floral & Oceanic Set</div>
+                    <div className="text-[12px] text-[#777] mt-0.5">3 fresh and botanical profiles</div>
+                  </div>
+                </label>
+             </div>
+             <button className="bg-gradient-to-r from-[#FF5E1A] to-[#D47A8F] text-white px-8 py-5 rounded-full text-[12px] font-extrabold tracking-widest uppercase w-full hover:shadow-[0_10px_30px_rgba(212,122,143,0.4)] hover:scale-[1.02] transition-all">
+                Order Discovery Set - $39
+             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 6: "The 14-Hour Evaporation Curve" Analytics */}
+      <section className="w-full bg-white py-32 px-8 lg:px-12 border-t border-[#EAEAEA]">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-20">
+            <div className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-[#FFD1FF] to-[#8EC5FC] text-[10px] uppercase font-bold tracking-[0.3em] text-[#1A0A26] mb-6 shadow-sm border border-white">Experiment Portrait 04</div>
+            <h2 className="font-serif text-[48px] md:text-[56px] text-transparent bg-clip-text bg-gradient-to-r from-[#1A0A26] to-[#5A3E92] mb-6 leading-tight">The 14-Hour Evaporation Curve</h2>
+            <p className="text-[#666] text-[15px] max-w-2xl mx-auto leading-relaxed font-medium">
+              Mapped through mass spectrometry. Our pure extracts sustain a linear projection, bypassing traditional top-note burnout for a continuous emotional signature.
+            </p>
+          </div>
+          
+          {/* SVG Chart */}
+          <div className="w-full h-[350px] relative mb-20 bg-white rounded-3xl border-2 border-[#F0F0F0] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+            <svg viewBox="0 0 800 200" className="w-full h-full overflow-visible" preserveAspectRatio="none">
+              {/* Grid lines */}
+              <line x1="0" y1="180" x2="800" y2="180" stroke="#EAEAEA" strokeWidth="2" />
+              <line x1="0" y1="90" x2="800" y2="90" stroke="#F5F5F5" strokeWidth="2" strokeDasharray="8,8" />
+              {/* The Curve */}
+              <path d="M 0,180 C 100,50 200,20 300,40 C 500,80 650,150 800,160" fill="none" stroke="url(#curve-grad)" strokeWidth="6" strokeLinecap="round" />
+              <path d="M 0,180 C 100,50 200,20 300,40 C 500,80 650,150 800,160 L 800,180 L 0,180 Z" fill="url(#area-grad)" opacity="0.4" />
+              <defs>
+                <linearGradient id="curve-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#FF5E1A" />
+                  <stop offset="50%" stopColor="#FF3366" />
+                  <stop offset="100%" stopColor="#9933FF" />
+                </linearGradient>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#FF3366" />
+                  <stop offset="100%" stopColor="white" />
+                </linearGradient>
+              </defs>
+              {/* Points */}
+              <circle cx="200" cy="28" r="8" fill="#FF5E1A" stroke="#FFF" strokeWidth="3" className="filter drop-shadow-[0_0_10px_#FF5E1A]" />
+              <circle cx="500" cy="94" r="8" fill="#FF3366" stroke="#FFF" strokeWidth="3" className="filter drop-shadow-[0_0_10px_#FF3366]" />
+              <circle cx="750" cy="158" r="8" fill="#9933FF" stroke="#FFF" strokeWidth="3" className="filter drop-shadow-[0_0_10px_#9933FF]" />
+            </svg>
+            <div className="flex justify-between text-[11px] font-extrabold text-[#999] uppercase tracking-widest mt-6">
+               <span>0H</span>
+               <span>4H</span>
+               <span>8H</span>
+               <span>14H</span>
+            </div>
+          </div>
+          
+          {/* 3 Data Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-[#FFF0EB] p-10 rounded-[2rem] border border-white shadow-[0_10px_30px_rgba(255,94,26,0.05)] hover:-translate-y-2 transition-transform duration-500">
+               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF5E1A] to-[#FF8C00] text-white flex items-center justify-center text-[12px] font-bold mb-6 shadow-md">01</div>
+               <h3 className="font-serif text-2xl text-[#4A1A0A] mb-4">The Atmospheric Opening</h3>
+               <p className="text-[#7A3E2A] text-[13px] leading-relaxed font-medium">Volatile esters expand rapidly, piercing the immediate 2-meter radius with pure clarity.</p>
+            </div>
+            <div className="bg-[#FFF0F5] p-10 rounded-[2rem] border border-white shadow-[0_10px_30px_rgba(255,51,102,0.05)] hover:-translate-y-2 transition-transform duration-500">
+               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF3366] to-[#FF5E8E] text-white flex items-center justify-center text-[12px] font-bold mb-6 shadow-md">02</div>
+               <h3 className="font-serif text-2xl text-[#4A0A20] mb-4">The Emotional Signature</h3>
+               <p className="text-[#7A2A44] text-[13px] leading-relaxed font-medium">The heavy heart notes mature, bonding with skin chemistry to create a bespoke sillage.</p>
+            </div>
+            <div className="bg-[#F0F5FF] p-10 rounded-[2rem] border border-white shadow-[0_10px_30px_rgba(59,130,246,0.05)] hover:-translate-y-2 transition-transform duration-500">
+               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#00A3E0] text-white flex items-center justify-center text-[12px] font-bold mb-6 shadow-md">03</div>
+               <h3 className="font-serif text-2xl text-[#0A204A] mb-4">The Symbiotic Anchor</h3>
+               <p className="text-[#2A447A] text-[13px] leading-relaxed font-medium">Resins and woods form a molecular anchor, remaining perceptible on fabric for 48+ hours.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 7: Quote & Footer */}
+      <section className="w-full bg-[#1A0A26] pt-32 text-center text-white flex flex-col items-center relative overflow-hidden">
+        {/* Colorful Glowing Backdrops in Footer */}
+        <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-[#9933FF] blur-[150px] opacity-20 pointer-events-none"></div>
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#FF3366] blur-[150px] opacity-10 pointer-events-none"></div>
+        
+        <div className="max-w-[900px] mx-auto px-8 mb-32 relative z-10">
+           <div className="flex justify-center gap-2 mb-10 text-[#FFB84D]">
+             {[1,2,3,4,5].map(i => <svg key={i} width="28" height="28" viewBox="0 0 24 24" fill="url(#star-grad-2)"><defs><linearGradient id="star-grad-2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#FFD166" /><stop offset="100%" stopColor="#FFB84D" /></linearGradient></defs><path d="M12 2L15 10H22L16 15L18 22L12 18L6 22L8 15L2 10H9L12 2Z"/></svg>)}
+           </div>
+           <blockquote className="font-serif italic text-4xl md:text-[46px] text-transparent bg-clip-text bg-gradient-to-br from-white via-[#FFE8D6] to-[#D6E0FF] leading-tight mb-12">
+             "ONE OF NONE has achieved what few luxury houses dare: uncompromised aesthetic vibrancy paired with masterclass fragrance sillage."
+           </blockquote>
+           <div className="flex justify-center gap-6 text-[12px] font-bold tracking-widest uppercase text-[#A288C1]">
+             <Link href="#" className="hover:text-white transition-colors">Vogue</Link>
+             <span>•</span>
+             <Link href="#" className="hover:text-white transition-colors">Wallpaper*</Link>
+             <span>•</span>
+             <Link href="#" className="hover:text-white transition-colors">GQ</Link>
+           </div>
+        </div>
+        
+        {/* Footer Data */}
+        <footer className="w-full border-t border-white/10 pt-24 pb-12 px-8 md:px-16 text-left relative z-10 bg-[#1A0A26]/50 backdrop-blur-3xl">
+           <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 mb-24">
+              <div className="lg:col-span-5 flex flex-col pr-0 lg:pr-16">
+                 <div className="text-4xl font-serif font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white to-[#A288C1] mb-8">One of None</div>
+                 <p className="text-[#C8B8E0] text-[14px] leading-relaxed mb-10 max-w-sm font-medium">
+                   Architectural curations of rare olfactory matter. Hand-poured in Grasse, sculpted in monolithic flacons designed for perpetuity.
+                 </p>
+                 <div className="flex items-center border-b-2 border-[#5A3E92] pb-3 max-w-sm focus-within:border-[#FF5E8E] transition-colors group">
+                    <input type="email" placeholder="JOIN THE INNER CIRCLE" className="bg-transparent w-full outline-none text-[11px] font-bold tracking-widest uppercase text-white placeholder-[#886BAA]" />
+                    <button className="text-[#A288C1] group-focus-within:text-[#FF5E8E] transition-colors"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12H19M19 12L12 19M19 12L12 5"/></svg></button>
+                 </div>
+              </div>
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-12">
+                 <div className="flex flex-col gap-5">
+                    <h4 className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB84D] to-[#FF3366] text-[11px] font-extrabold tracking-widest uppercase mb-3">Our World</h4>
+                    <Link href="#" className="text-[#A288C1] text-[13px] font-bold hover:text-white transition-colors">The Extract Process</Link>
+                    <Link href="#" className="text-[#A288C1] text-[13px] font-bold hover:text-white transition-colors">Bespoke Flacons</Link>
+                    <Link href="#" className="text-[#A288C1] text-[13px] font-bold hover:text-white transition-colors">Grasse Laboratory</Link>
+                 </div>
+                 <div className="flex flex-col gap-5">
+                    <h4 className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB84D] to-[#FF3366] text-[11px] font-extrabold tracking-widest uppercase mb-3">Resources</h4>
+                    <Link href="#" className="text-[#A288C1] text-[13px] font-bold hover:text-white transition-colors">Shipping & Returns</Link>
+                    <Link href="#" className="text-[#A288C1] text-[13px] font-bold hover:text-white transition-colors">Track Order</Link>
+                    <Link href="#" className="text-[#A288C1] text-[13px] font-bold hover:text-white transition-colors">Client Care</Link>
+                 </div>
+                 <div className="flex flex-col gap-5">
+                    <h4 className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFB84D] to-[#FF3366] text-[11px] font-extrabold tracking-widest uppercase mb-3">Socials</h4>
+                    <Link href="#" className="text-[#A288C1] text-[13px] font-bold hover:text-white transition-colors">Instagram</Link>
+                    <Link href="#" className="text-[#A288C1] text-[13px] font-bold hover:text-white transition-colors">TikTok</Link>
+                    <Link href="#" className="text-[#A288C1] text-[13px] font-bold hover:text-white transition-colors">Pinterest</Link>
+                 </div>
+              </div>
+           </div>
+           
+           <div className="max-w-[1400px] mx-auto border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[#886BAA] text-[11px] font-bold tracking-widest uppercase">
+              <div>© 2026 ONE OF NONE</div>
+              <div className="flex gap-8">
+                 <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
+                 <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
+              </div>
+           </div>
+        </footer>
+      </section>
+
+    </div>
   );
 }
