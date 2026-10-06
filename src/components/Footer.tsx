@@ -1,60 +1,88 @@
 import Link from "next/link";
-import Image from "next/image";
 
-export default function Footer({ theme }: { theme?: string }) {
+export default function Footer() {
   return (
-    <footer className="bg-[#F9F8F3] text-[#1A1A1A] pt-16 pb-10 px-6 border-t border-[#E5E5E5] font-sans">
+    <footer className="w-full bg-[#0A101D] text-[#FCFCFA] pt-24 pb-12 px-8 lg:px-12 border-t border-[#1A2235]">
       <div className="max-w-[1400px] mx-auto">
         
-        {/* Email Signup & Links Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          <div className="col-span-1 md:col-span-2 lg:col-span-1">
-            <h4 className="font-serif text-2xl tracking-[0.1em] mb-4 text-[#1A1A1A]">RM PERFUMES</h4>
-            <p className="text-[11px] text-[#555555] mb-6 leading-relaxed font-light">
-              Enter our olfactory registry to receive confidential private blend releases, seasonal harvest monographs, and discovery invites.
+        {/* Top Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 border-b border-[#1A2235] pb-24">
+          
+          {/* Brand & Newsletter */}
+          <div className="lg:col-span-5 flex flex-col items-start pr-0 lg:pr-12">
+            <Link href="/" className="flex flex-col items-start group cursor-pointer mb-8">
+              <span className="text-3xl font-headline-md font-bold uppercase tracking-[0.2em] text-[#FCFCFA] group-hover:text-[#C4A45C] transition-colors">One of None</span>
+              <span className="text-[9px] font-bold tracking-[0.4em] text-[#C4A45C] uppercase mt-1">Haute Parfumerie</span>
+            </Link>
+            
+            <p className="text-[#8B95A5] text-[13px] leading-relaxed mb-10 font-body-sm max-w-sm">
+              Subscribe to the Inner Circle ledger. Receive exclusive invitations to private vault releases and olfactory dispatches from our Grasse atelier.
             </p>
-            <div className="flex items-center border-b border-[#1A1A1A] pb-2">
-              <Link href="/newsletter-signup">
-                <button className="text-[10px] tracking-widest uppercase ml-4 text-[#1A1A1A] hover:text-[#555555]">Sign Up</button>
-              </Link>
+            
+            <form className="w-full max-w-md relative flex items-center border-b border-[#3A455C] pb-3 group focus-within:border-[#C4A45C] transition-colors">
+              <input 
+                type="email" 
+                placeholder="YOUR EMAIL ADDRESS" 
+                className="w-full bg-transparent outline-none text-[10px] tracking-[0.2em] uppercase font-bold text-[#FCFCFA] placeholder:text-[#5A657C]"
+                required
+              />
+              <button type="submit" className="absolute right-0 text-[#8B95A5] group-focus-within:text-[#C4A45C] hover:text-[#FCFCFA] transition-colors">
+                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </button>
+            </form>
+          </div>
+          
+          {/* Links Columns */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-12 lg:gap-8 pt-4">
+            
+            {/* Column 1 */}
+            <div className="flex flex-col gap-6">
+              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#C4A45C] mb-2 font-label-sm">The Vault</h4>
+              <Link href="/#chromatic-vault" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">All Extraits</Link>
+              <Link href="/product/cologne-discovery-collection" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Discovery Set</Link>
+              <Link href="/atelier" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Bespoke Flacons</Link>
+              <Link href="/cart" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Your Bag</Link>
             </div>
-          </div>
-          
-          <div>
-            <h4 className="font-serif text-lg mb-6 text-[#1A1A1A]">Customer Care</h4>
-            <ul className="space-y-4 text-[11px] tracking-wider text-[#555555] uppercase font-light">
-              <li><Link href="/contact" className="hover:text-[#1A1A1A] transition-colors">Contact Us</Link></li>
-              <li><Link href="/delivery" className="hover:text-[#1A1A1A] transition-colors">Delivery Information</Link></li>
-              <li><Link href="/returns" className="hover:text-[#1A1A1A] transition-colors">Returns & Refunds</Link></li>
-              <li><Link href="/track-order" className="hover:text-[#1A1A1A] transition-colors">Track Your Order</Link></li>
-              <li><Link href="/faq" className="hover:text-[#1A1A1A] transition-colors">FAQ</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-serif text-lg mb-6 text-[#1A1A1A]">About Us</h4>
-            <ul className="space-y-4 text-[11px] tracking-wider text-[#555555] uppercase font-light">
-              <li><Link href="/our-story" className="hover:text-[#1A1A1A] transition-colors">Our Story</Link></li>
-              <li><Link href="/ingredients" className="hover:text-[#1A1A1A] transition-colors">Ingredients & Sourcing</Link></li>
-              <li><Link href="/careers" className="hover:text-[#1A1A1A] transition-colors">Careers</Link></li>
-              <li><Link href="/corporate-gifting" className="hover:text-[#1A1A1A] transition-colors">Corporate Gifting</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-serif text-lg mb-6 text-[#1A1A1A]">Legal</h4>
-            <ul className="space-y-4 text-[11px] tracking-wider text-[#555555] uppercase font-light">
-              <li><Link href="/terms" className="hover:text-[#1A1A1A] transition-colors">Terms & Conditions</Link></li>
-              <li><Link href="/privacy" className="hover:text-[#1A1A1A] transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/cookie-policy" className="hover:text-[#1A1A1A] transition-colors">Cookie Policy</Link></li>
-              <li><Link href="/accessibility" className="hover:text-[#1A1A1A] transition-colors">Accessibility</Link></li>
-            </ul>
+            
+            {/* Column 2 */}
+            <div className="flex flex-col gap-6">
+              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#C4A45C] mb-2 font-label-sm">Exploration</h4>
+              <Link href="/journal" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Olfactive Journal</Link>
+              <Link href="/atelier" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Our Atelier</Link>
+              <Link href="#" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Rare Resins</Link>
+              <Link href="#" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Grasse Laboratory</Link>
+            </div>
+            
+            {/* Column 3 */}
+            <div className="flex flex-col gap-6">
+              <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#C4A45C] mb-2 font-label-sm">Assistance</h4>
+              <Link href="#" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Client Care</Link>
+              <Link href="#" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Shipping & Returns</Link>
+              <Link href="#" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Terms of Service</Link>
+              <Link href="#" className="text-[#8B95A5] text-[11px] font-bold tracking-[0.1em] uppercase hover:text-[#FCFCFA] transition-colors">Privacy Policy</Link>
+            </div>
+            
           </div>
         </div>
         
-        <div className="pt-8 border-t border-[#E5E5E5] flex flex-col items-center justify-center text-[9px] text-[#555555] tracking-widest uppercase">
-          <p>© 2024 RM PERFUMES. ALL RIGHTS RESERVED.</p>
+        {/* Bottom Section */}
+        <div className="flex flex-col md:flex-row items-center justify-between pt-10 gap-6">
+          <div className="flex items-center gap-6">
+            <Link href="#" className="text-[#8B95A5] hover:text-[#FCFCFA] transition-colors">
+               <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Instagram</span>
+            </Link>
+            <Link href="#" className="text-[#8B95A5] hover:text-[#FCFCFA] transition-colors">
+               <span className="text-[10px] font-bold tracking-[0.2em] uppercase">TikTok</span>
+            </Link>
+            <Link href="#" className="text-[#8B95A5] hover:text-[#FCFCFA] transition-colors">
+               <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Pinterest</span>
+            </Link>
+          </div>
+          <p className="text-[10px] text-[#5A657C] font-bold tracking-[0.2em] uppercase">
+            © {new Date().getFullYear()} ONE OF NONE. All rights reserved.
+          </p>
         </div>
+
       </div>
     </footer>
   );
