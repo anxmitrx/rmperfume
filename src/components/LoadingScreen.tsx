@@ -42,7 +42,7 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
 }
 
 function LoadingScreenOverlay({ isLoading }: { isLoading: boolean }) {
-  const pathVariants = {
+  const pathVariants: any = {
     hidden: { 
       pathLength: 0, 
       fill: "rgba(26, 26, 26, 0)",
