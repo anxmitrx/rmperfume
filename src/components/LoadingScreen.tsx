@@ -75,7 +75,7 @@ function LoadingScreenOverlay({ isLoading }: { isLoading: boolean }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="fixed inset-0 z-[9999] bg-[#FFF6F2] flex items-center justify-center"
+          className="fixed inset-0 z-[9999] bg-[#F5F0E6] flex items-center justify-center"
         >
           <div className="flex items-center gap-6 md:gap-10">
             {/* Circle */}

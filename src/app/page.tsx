@@ -27,7 +27,7 @@ export default function Home() {
   const { triggerLoading } = useLoading();
 
   return (
-    <div className="min-h-screen font-sans w-full text-[#1A1A1A] overflow-x-hidden flex flex-col selection:bg-[#FF3366] selection:text-white bg-[#FFF6F2]">
+    <div className="min-h-screen font-sans w-full text-[#1A1A1A] overflow-x-hidden flex flex-col selection:bg-[#FF3366] selection:text-white bg-[#F5F0E6]">
       
       {/* SECTION 1: Minimalist Navigation Bar */}
       <header className="absolute top-0 left-0 w-full flex items-center justify-between px-8 md:px-12 py-8 z-50">
@@ -136,7 +136,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 3: "Best Selling Product" Carousel */}
-      <section className="w-full bg-white/60 backdrop-blur-lg pt-32 pb-24 border-t border-white/50 relative z-20 shadow-[0_-20px_50px_rgba(255,255,255,0.5)]">
+      <section className="w-full bg-[#F5F0E6]/60 backdrop-blur-lg pt-32 pb-24 border-t border-white/50 relative z-20 shadow-[0_-20px_50px_rgba(255,255,255,0.5)]">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12 flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
            <h2 className="font-serif text-[42px] text-[#1A1A1A] flex items-start gap-1 relative tracking-tight">
              Best Selling Product
@@ -154,7 +154,7 @@ export default function Home() {
         
         <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-8 lg:px-12">
            {bestSellers.map((product, idx) => (
-              <motion.div key={idx} whileHover={{ y: -10 }} className={`bg-white border border-[#EAEAEA] rounded-[2rem] flex flex-col h-[480px] relative group transition-all duration-500 overflow-hidden ${product.glow}`}>
+              <motion.div key={idx} whileHover={{ y: -10 }} className={`bg-[#FAF7F2] border border-[#EAEAEA] rounded-[2rem] flex flex-col h-[480px] relative group transition-all duration-500 overflow-hidden ${product.glow}`}>
                  <button onClick={() => triggerLoading()} className={`absolute top-6 right-6 z-20 p-2 rounded-full shadow-sm hover:scale-110 transition-transform ${idx === 0 ? 'bg-[#F2E5EC] drop-shadow-sm' : 'bg-white/50 backdrop-blur-md'}`}>
                    <svg width="20" height="20" viewBox="0 0 24 24" fill={idx === 0 ? "#FF3366" : "none"} stroke={idx === 0 ? "#FF3366" : "#CCC"} strokeWidth="2.5">
                       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -181,7 +181,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 4: "The Chromatic Vault" Grid */}
-      <section className="w-full bg-white py-32 border-t border-[#EAEAEA]">
+      <section className="w-full bg-[#F5F0E6] py-32 border-t border-[#EAEAEA]">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12 flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
            <h2 className="font-serif text-[50px] text-transparent bg-clip-text bg-gradient-to-r from-[#1A1A1A] to-[#666] tracking-tight">
              The Chromatic Vault
@@ -216,7 +216,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 5: Discovery Set Banner */}
-      <section className="w-full bg-white py-32 px-8 lg:px-12">
+      <section className="w-full bg-[#F5F0E6] py-32 px-8 lg:px-12">
         <div className="bg-gradient-to-r from-[#FFE8D6] via-[#FFD6E8] to-[#D6E0FF] rounded-[3rem] overflow-hidden flex flex-col lg:flex-row max-w-[1300px] mx-auto shadow-2xl border border-white p-2">
           <div className="w-full lg:w-[45%] relative min-h-[450px] lg:min-h-auto rounded-[2.5rem] overflow-hidden shadow-inner">
              <Image src="/images/shop_collection.jpg" fill alt="Discovery Set" className="object-cover" />
@@ -251,7 +251,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 6: "The 14-Hour Evaporation Curve" Analytics */}
-      <section className="w-full bg-white py-32 px-8 lg:px-12 border-t border-[#EAEAEA]">
+      <section className="w-full bg-[#F5F0E6] py-32 px-8 lg:px-12 border-t border-[#EAEAEA]">
         <div className="max-w-[1100px] mx-auto">
           <div className="text-center mb-20">
             <div className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-[#FFD1FF] to-[#8EC5FC] text-[10px] uppercase font-bold tracking-[0.3em] text-[#1A0A26] mb-6 shadow-sm border border-white">Experiment Portrait 04</div>
@@ -262,7 +262,7 @@ export default function Home() {
           </div>
           
           {/* SVG Chart */}
-          <div className="w-full h-[350px] relative mb-20 bg-white rounded-3xl border-2 border-[#F0F0F0] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+          <div className="w-full h-[350px] relative mb-20 bg-[#FAF7F2] rounded-3xl border-2 border-[#F0F0F0] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
             <svg viewBox="0 0 800 200" className="w-full h-full overflow-visible" preserveAspectRatio="none">
               {/* Grid lines */}
               <line x1="0" y1="180" x2="800" y2="180" stroke="#EAEAEA" strokeWidth="2" />
